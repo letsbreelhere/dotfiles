@@ -15,7 +15,7 @@ map <leader>- :sp<cr>
 set wildmode=longest,list,full
 set wildmenu
 set undofile
-set undodir=/home/letsbreelhere/.vimundo/
+set undodir=$HOME/.vimundo/
 
 set splitright
 set splitbelow
