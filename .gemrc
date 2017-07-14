@@ -1,0 +1,5 @@
+gem: --no-ri --no-rdoc
+update_sources: true
+sources:
+- http://rubygems.org/
+- https://rubygems.s.pvsher.com

@@ -1,0 +1,30 @@
+map <space> <leader>
+map <leader>q :q<cr>
+map <leader>w :w<cr>
+
+map Y y$
+map <leader>y "+y
+map <leader>Y "+y$
+map <leader>p "+p
+map <leader>P "+P
+map <leader><cr> :set hlsearch!<cr>:echo<cr>
+
+map <leader>\| :vs<cr>
+map <leader>- :sp<cr>
+
+set wildmode=longest,list,full
+set wildmenu
+set undofile
+set undodir=/home/letsbreelhere/.vimundo/
+
+set splitright
+set splitbelow
+
+set nowrap
+
+let g:neomake_open_list=0
+autocmd! BufWritePost,BufEnter * Neomake
+
+let g:ctrlp_custom_ignore = {
+\'dir': '\v[\/](node_modules|android|ios)',
+\}

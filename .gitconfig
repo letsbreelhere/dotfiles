@@ -1,0 +1,33 @@
+[user]
+  name  = Bree Elle Gardner
+  email = letsbreelhere@gmail.com
+[branch]
+  autosteuprebase = always
+[alias]
+  d       = diff
+  dc      = diff --cached
+  s       = status
+  co      = checkout
+  b       = branch
+  pop     = stash pop
+  tree    = log --graph --decorate --pretty=oneline --abbrev-commit
+  amend   = commit --amend --no-edit
+  wip     = !git add -A && git commit -m "WIP"
+  curbr   = rev-parse --abbrev-ref HEAD
+  cb      = rev-parse --abbrev-ref HEAD
+  comit   = commit
+  commmit = commit
+[commit]
+  template = ~/.git-commit-template
+[core]
+	editor = /usr/bin/vim
+  excludesfile = ~/.gitignore
+[color]
+  branch      = true
+  diff        = true
+  interactive = true
+  status      = true
+[push]
+  default = current
+[clean]
+  requireForce = false

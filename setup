@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+IGNORED_DIRS = %w{.git}
+IGNORED_FILES = %w{setup.rb}
+TARGET_DIR = "$HOME"
+THIS_DIR=%x{cd "$( dirname "$0" )" && pwd}
+
+files = Dir.glob("**/*", File::FNM_DOTMATCH).reject do |f|
+  File.directory?(f) || f.start_with?(*IGNORED_DIRS) || IGNORED_FILES.any? { |f2| f == f2 }
+end
+
+files.each do |file|
+  new_path = File.join(TARGET_DIR, file)
+  new_dir = File.dirname(new_path)
+  %x(mkdir -p #{new_dir} && ln -nfs #{file} #{new_dir})
+end

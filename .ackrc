@@ -1,0 +1,26 @@
+--color
+
+--ignore .git
+--ignore .svn
+--ignore .hg
+--ignore .DS_Store
+--ignore-dir=.idea/
+--ignore-dir=coverage/
+--ignore-dir=tmp/
+--ignore-dir=node_modules/
+--ignore-dir=coverage/
+--ignore-dir=log/
+--ignore-dir=.cabal-sandbox/
+--ignore-file=match:tags
+
+--type-add=css=scss
+--type-add=ruby=.haml,.rselm,.feature,.ru,.lock
+--type-set=coffeescript=.coffee
+--type-set=coffee=.coffee
+
+--ignore-dir=node_modules
+--ignore-dir=dist
+--type-set=coffee=.coffee
+--type-set=jade=.jade
+--type-set=feature=.feature
+--type-set=json=.json

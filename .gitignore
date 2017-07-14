@@ -1,0 +1,5 @@
+nvim/undo
+nvim/plugged
+nvim/tmp
+nvim/.init.vim-rplugin~
+.netrwhist
