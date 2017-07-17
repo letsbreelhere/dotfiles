@@ -7,8 +7,8 @@ map <leader>y "+y
 map <leader>Y "+y$
 map <leader>p "+p
 map <leader>P "+P
-map <leader><cr> :set hlsearch!<cr>:echo<cr>
-map <leader>n :NERDTreeToggle<cr>:echo<cr>
+map <silent> <leader><cr> :set hlsearch!<cr>
+map <silent> <leader>n :NERDTreeToggle<cr>
 
 map <leader>\| :vs<cr>
 map <leader>- :sp<cr>
