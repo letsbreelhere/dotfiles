@@ -9,8 +9,10 @@ map <leader>p "+p
 map <leader>P "+P
 map <silent> <leader><cr> :set hlsearch!<cr>
 map <silent> <leader>n :NERDTreeToggle<cr>
+map <silent> <leader><space> <nop>
+map <leader>= <C-w>=
 
-map <leader>\| :vs<cr>
+map <leader>\ :vs<cr>
 map <leader>- :sp<cr>
 
 set wildmode=longest,list,full
@@ -24,7 +26,7 @@ set splitbelow
 set nowrap
 
 let g:neomake_open_list=0
-autocmd! BufWritePost,BufEnter * Neomake
+autocmd! BufWritePost * Neomake
 
 let g:ctrlp_custom_ignore = {
 \'dir': '\v[\/](node_modules|android|ios)',

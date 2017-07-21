@@ -11,6 +11,8 @@
 --ignore-dir=coverage/
 --ignore-dir=log/
 --ignore-dir=.cabal-sandbox/
+--ignore-dir=android/
+--ignore-dir=ios/
 --ignore-file=match:tags
 
 --type-add=css=scss

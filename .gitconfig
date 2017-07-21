@@ -13,10 +13,10 @@
   tree    = log --graph --decorate --pretty=oneline --abbrev-commit
   amend   = commit --amend --no-edit
   wip     = !git add -A && git commit -m "WIP"
-  curbr   = rev-parse --abbrev-ref HEAD
   cb      = rev-parse --abbrev-ref HEAD
   comit   = commit
   commmit = commit
+  ap      = add -p
 [commit]
   template = ~/.git-commit-template
 [core]
