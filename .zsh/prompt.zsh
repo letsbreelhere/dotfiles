@@ -22,9 +22,11 @@ function custom_precmd {
     vcs_status_string=" %{$fg[red]%}$unadded_files %{$fg[green]%}$added_files%{$fg[cyan]%}"
   fi
 
+  job_info=$(jobs | prompt_jobs)
   prompt_symbol=$(day_of_week_symbol)
   hostname=$(hostname)
+  return_status="%{$fg[red]%}%(?..[%?] )%{$reset_color%}"
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='%{$fg[blue]%}%1d%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%}%{$fg[magenta]%} ${prompt_symbol} %{$reset_color%}'
+PROMPT='${return_status}%{$fg[magenta]%}${job_info}%{$fg[blue]%}%1d%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%}%{$fg[magenta]%} ${prompt_symbol}%{$reset_color%} '

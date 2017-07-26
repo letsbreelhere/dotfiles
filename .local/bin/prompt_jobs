@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+res = STDIN.each_line.map { |line|
+  matches = /\[(\d+)\][ +-]+\w+\s+(\w+)/.match(line)
+  matches.captures if matches
+}.compact.map { |caps|
+  "#{caps[1]}:#{caps[0]}"
+}.join(' ')
+
+res += ' ' unless res.empty?
+
+print res

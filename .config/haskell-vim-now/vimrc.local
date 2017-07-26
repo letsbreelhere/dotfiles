@@ -15,6 +15,10 @@ map <leader>= <C-w>=
 map <leader>\ :vs<cr>
 map <leader>- :sp<cr>
 
+" Don't leave visual mode after indent
+vnoremap > >gv
+vnoremap < <gv
+
 set wildmode=longest,list,full
 set wildmenu
 set undofile
@@ -24,22 +28,26 @@ set splitright
 set splitbelow
 
 set nowrap
+set textwidth=80
 
 let g:neomake_open_list=0
 autocmd! BufWritePost * Neomake
 
-let g:ctrlp_custom_ignore = {
-\'dir': '\v[\/](node_modules|android|ios)',
-\}
-
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag'
 
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 
+  " K searches the project for the word under the cursor
   nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
 endif
 command -nargs=+ Ag :Ack <args>
+let g:ack_autofold_results = 1
+
+" Airline styling
+let g:airline_section_x='' " Don't display filetype
+let g:airline_section_b='' " Don't display branch
+let g:airline_section_z='%p:%v' " Less flashy line:column display
