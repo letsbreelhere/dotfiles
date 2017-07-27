@@ -15,6 +15,8 @@ map <leader>= <C-w>=
 map <leader>\ :vs<cr>
 map <leader>- :sp<cr>
 
+imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+
 " Don't leave visual mode after indent
 vnoremap > >gv
 vnoremap < <gv
@@ -43,9 +45,20 @@ if executable('ag')
 
   " K searches the project for the word under the cursor
   nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
+
+  " Immensely janky find and replace.
+  " Here mostly so I remember I can do `cfdo`.
+  function Far(from, to)
+    let l:oldhighlight = g:ackhighlight
+    let g:ackhighlight = 1
+    exec "Ack '" . a:from . "'"
+    exec "cfdo %S//" . a:to . "/gcI | w"
+    let g:ackhighlight = l:oldhighlight
+  endfunction
+
+  command -nargs=+ Far call Far(<f-args>)
+  command -nargs=+ Ag :Ack <args>
 endif
-command -nargs=+ Ag :Ack <args>
-let g:ack_autofold_results = 1
 
 " Airline styling
 let g:airline_section_x='' " Don't display filetype
