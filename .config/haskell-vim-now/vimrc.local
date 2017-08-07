@@ -12,6 +12,8 @@ map <silent> <leader>n :NERDTreeToggle<cr>
 map <silent> <leader><space> <nop>
 map <leader>= <C-w>=
 
+map <leader>be :BufExplorer<cr>
+
 map <leader>\ :vs<cr>
 map <leader>- :sp<cr>
 
@@ -32,8 +34,21 @@ set splitbelow
 set nowrap
 set textwidth=80
 
+set cursorline
+
 let g:neomake_open_list=0
 autocmd! BufWritePost * Neomake
+
+if executable('eslint')
+  function Fix()
+    silent exec "! eslint --fix %"
+    exec "Neomake"
+  endfunction
+
+  command -nargs=0 Fix call Fix()
+
+  map <silent> <leader>f :Fix<cr>
+endif
 
 if executable('ag')
   let g:ackprg = 'ag'
@@ -52,7 +67,7 @@ if executable('ag')
     let l:oldhighlight = g:ackhighlight
     let g:ackhighlight = 1
     exec "Ack '" . a:from . "'"
-    exec "cfdo %S//" . a:to . "/gcI | w"
+    exec "cfdo %s//" . a:to . "/gc | w"
     let g:ackhighlight = l:oldhighlight
   endfunction
 

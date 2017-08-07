@@ -5,3 +5,4 @@ alias rspec='bundle exec rspec'
 alias g=git
 alias ag='ag --path-to-ignore ~/.agignore'
 alias -g .w='build --file-watch'
+alias glint='eslint `git diff master --name-only`'
