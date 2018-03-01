@@ -4,6 +4,7 @@
 [branch]
   autosteuprebase = always
 [alias]
+  yolo    = push --force
   d       = diff
   dc      = diff --cached
   s       = status
@@ -17,10 +18,12 @@
   comit   = commit
   commmit = commit
   ap      = add -p
+  cp      = cherry-pick
+  ;cleanup = !git branch --merged | grep -v "\*" | grep -v master | xargs -n 1 git branch -d
 [commit]
   template = ~/.git-commit-template
 [core]
-	editor = /usr/bin/vim
+  editor = /usr/bin/vim
   excludesfile = ~/.gitignore
 [color]
   branch      = true
