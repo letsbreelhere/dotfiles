@@ -13,8 +13,8 @@ function day_of_week_symbol {
 function custom_precmd {
   vcs_info
   git_status=$(git status --porcelain 2>/dev/null)
-  unadded_files=$(echo $git_status | egrep '^.[?AMDR] ' | wc -l | awk {'print $1'})
-  added_files=$(echo $git_status   | egrep '^[AMDR]. '  | wc -l | awk {'print $1'})
+  unadded_files=$(echo $git_status | egrep '^.[?ACMDR] ' | wc -l | awk {'print $1'})
+  added_files=$(echo $git_status   | egrep '^[ACMDR]. '  | wc -l | awk {'print $1'})
 
   if [ $added_files -eq 0 ] && [ $unadded_files -eq 0 ]; then
     vcs_status_string=""

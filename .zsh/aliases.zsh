@@ -6,3 +6,4 @@ alias g=git
 alias ag='ag --path-to-ignore ~/.agignore'
 alias -g .w='build --file-watch'
 alias glint='eslint `git diff master --name-only`'
+alias pretty='prettier --write `git diff master --name-only`'
