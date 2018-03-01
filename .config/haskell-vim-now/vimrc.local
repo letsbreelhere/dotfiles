@@ -2,6 +2,17 @@ map <space> <leader>
 map <leader>q :q<cr>
 map <leader>w :w<cr>
 
+" Ugh. This keeps a palm tap on the touchpad from being detected as a
+" middle-click and pasting crap all over the buffer.
+map <MiddleMouse> <Nop>
+map <2-MiddleMouse> <Nop>
+map <3-MiddleMouse> <Nop>
+map <4-MiddleMouse> <Nop>
+imap <MiddleMouse> <Nop>
+imap <2-MiddleMouse> <Nop>
+imap <3-MiddleMouse> <Nop>
+imap <4-MiddleMouse> <Nop>
+
 map Y y$
 map <leader>y "+y
 map <leader>Y "+y$
@@ -23,6 +34,7 @@ imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
 vnoremap > >gv
 vnoremap < <gv
 
+set wildignorecase
 set wildmode=longest,list,full
 set wildmenu
 set undofile
@@ -38,6 +50,10 @@ set cursorline
 
 let g:neomake_open_list=0
 autocmd! BufWritePost * Neomake
+
+if executable('eslint')
+  let g:neomake_javascript_enabled_makers = ['eslint']
+endif
 
 if executable('eslint')
   function Fix()
@@ -79,3 +95,13 @@ endif
 let g:airline_section_x='' " Don't display filetype
 let g:airline_section_b='' " Don't display branch
 let g:airline_section_z='%p:%v' " Less flashy line:column display
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
+
+" Disable haskell-vim omnifunc
+let g:haskellmode_completion_ghc = 0
+
+" neco-ghc
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:necoghc_enable_detailed_browse = 1
+let g:necoghc_use_stack = 1
