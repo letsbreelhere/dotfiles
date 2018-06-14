@@ -14,8 +14,6 @@ source ~/.zsh/commands.zsh
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-eval "$(direnv hook zsh)"
-
 chpwd_functions=("chpwd")
 
 # Source local scripts in `./.zsh_config` if present
