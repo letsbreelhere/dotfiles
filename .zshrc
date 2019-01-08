@@ -21,7 +21,7 @@ chpwd_functions=("chpwd")
 function chpwd() {
   if [ -r $PWD/.zsh_config ]; then
     source $PWD/.zsh_config
-  else
-    source $HOME/.zshrc
   fi
 }
+
+plugins=(... dotenv)

@@ -26,7 +26,8 @@ function custom_precmd {
   prompt_symbol=$(day_of_week_symbol)
   hostname=$(hostname)
   return_status="%{$fg[red]%}%(?..[%?] )%{$reset_color%}"
+  dirname=$(print -P %~)
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='${return_status}%{$fg[magenta]%}${job_info}%{$fg[blue]%}%1d%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%}%{$fg[magenta]%} ${prompt_symbol}%{$reset_color%} '
+PROMPT='${return_status}%{$fg[magenta]%}${job_info}%{$fg[blue]%}${dirname}%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%}%{$fg[magenta]%} ${prompt_symbol}%{$reset_color%} '
