@@ -1,10 +1,10 @@
 function day_of_week_symbol {
   case $(date +%u) in
     1) echo "☾";;
-    2) echo "⚣";;
+    2) echo "♂";;
     3) echo "☿";;
     4) echo "♃";;
-    5) echo "⚢";;
+    5) echo "♀";;
     6) echo "♄";;
     7) echo "☉";;
   esac
@@ -30,4 +30,4 @@ function custom_precmd {
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='${return_status}%{$fg[magenta]%}${job_info}%{$fg[blue]%}${dirname}%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%}%{$fg[magenta]%} ${prompt_symbol}%{$reset_color%} '
+PROMPT='${return_status}%{$fg[magenta]%}${job_info}%{$fg[blue]%}${dirname}%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%} %{$fg[magenta]%}${prompt_symbol} %{$reset_color%}'
