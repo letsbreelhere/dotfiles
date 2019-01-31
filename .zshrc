@@ -9,7 +9,6 @@ source ~/.zsh/completion.zsh
 source ~/.zsh/vcs.zsh
 source ~/.zsh/prompt.zsh
 source ~/.zsh/aliases.zsh
-source ~/.zsh/exports.zsh
 source ~/.zsh/commands.zsh
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -24,4 +23,5 @@ function chpwd() {
   fi
 }
 
-plugins=(... dotenv)
+eval "$(direnv hook zsh)"
+source ~/.zsh/exports.zsh

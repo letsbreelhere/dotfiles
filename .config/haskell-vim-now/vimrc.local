@@ -25,10 +25,11 @@ map <leader>= <C-w>=
 
 map <leader>be :BufExplorer<cr>
 
-map <leader>\ :vs<cr>
-map <leader>- :sp<cr>
-
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+
+nmap <backspace> :set hlsearch!<cr>
+map <MiddleMouse> <Nop>
+imap <MiddleMouse> <Nop>
 
 " Don't leave visual mode after indent
 vnoremap > >gv
@@ -95,8 +96,8 @@ endif
 let g:airline_section_x='' " Don't display filetype
 let g:airline_section_b='' " Don't display branch
 let g:airline_section_z='%p:%v' " Less flashy line:column display
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
+"let g:prettier#autoformat = 0
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
 
 " Disable haskell-vim omnifunc
 let g:haskellmode_completion_ghc = 0
