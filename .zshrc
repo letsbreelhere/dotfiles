@@ -11,6 +11,9 @@ source ~/.zsh/prompt.zsh
 source ~/.zsh/aliases.zsh
 source ~/.zsh/commands.zsh
 
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 chpwd_functions=("chpwd")
@@ -25,3 +28,4 @@ function chpwd() {
 
 eval "$(direnv hook zsh)"
 source ~/.zsh/exports.zsh
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

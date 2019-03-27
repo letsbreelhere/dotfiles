@@ -16,8 +16,12 @@ imap <4-MiddleMouse> <Nop>
 map Y y$
 map <leader>y "+y
 map <leader>Y "+y$
+map <leader>d "+d
+map <leader>D "+d$
 map <leader>p "+p
 map <leader>P "+P
+nmap <leader>j ddp
+nmap <leader>k ddkP
 map <silent> <leader><cr> :set hlsearch!<cr>
 map <silent> <leader>n :NERDTreeToggle<cr>
 map <silent> <leader><space> <nop>
@@ -34,6 +38,11 @@ imap <MiddleMouse> <Nop>
 " Don't leave visual mode after indent
 vnoremap > >gv
 vnoremap < <gv
+
+" I literally never mean a bare u without preceding it with a g, and it causes
+" shenanigans constantly.
+vnoremap u <Nop>
+vnoremap U <Nop>
 
 set wildignorecase
 set wildmode=longest,list,full
@@ -52,21 +61,6 @@ set cursorline
 let g:neomake_open_list=0
 autocmd! BufWritePost * Neomake
 
-if executable('eslint')
-  let g:neomake_javascript_enabled_makers = ['eslint']
-endif
-
-if executable('eslint')
-  function Fix()
-    silent exec "! eslint --fix %"
-    exec "Neomake"
-  endfunction
-
-  command -nargs=0 Fix call Fix()
-
-  map <silent> <leader>f :Fix<cr>
-endif
-
 if executable('ag')
   let g:ackprg = 'ag'
 
@@ -78,13 +72,16 @@ if executable('ag')
   " K searches the project for the word under the cursor
   nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
 
+  " In visual mode, K searches the project for the selected text
+  vnoremap K "vy:Ack! "<C-R>""<CR>
+
   " Immensely janky find and replace.
   " Here mostly so I remember I can do `cfdo`.
   function Far(from, to)
     let l:oldhighlight = g:ackhighlight
     let g:ackhighlight = 1
     exec "Ack '" . a:from . "'"
-    exec "cfdo %s//" . a:to . "/gc | w"
+    exec "cfdo %s//" . a:to . "/gc | update"
     let g:ackhighlight = l:oldhighlight
   endfunction
 
@@ -106,3 +103,17 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 let g:necoghc_enable_detailed_browse = 1
 let g:necoghc_use_stack = 1
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver', 'tslint'],
+\   'mustache': ['ember-template-lint'],
+\}
+
+colorscheme ron
+let g:airline_theme='luna'
+set bg=dark
