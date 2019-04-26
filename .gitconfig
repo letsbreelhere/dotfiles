@@ -4,24 +4,24 @@
 [branch]
   autosteuprebase = always
 [alias]
-  yolo    = push --force
-  d       = diff
-  dc      = diff --cached
-  s       = status
-  co      = checkout
-  b       = branch
-  pop     = stash pop
-  tree    = log --graph --decorate --pretty=oneline --abbrev-commit
   amend   = commit --amend --no-edit
-  wip     = !git add -A && git commit -m "WIP"
+  ap      = add -p
+  b       = branch
   cb      = rev-parse --abbrev-ref HEAD
+  co      = checkout
   comit   = commit
   commmit = commit
-  ap      = add -p
   cp      = cherry-pick
+  d       = diff
+  dc      = diff --cached
   latest  = branch --sort=committerdate
+  no      = diff --name-only
+  pop     = stash pop
   rc      = rebase --continue
-  ;cleanup = !git branch --merged | grep -v "\*" | grep -v master | xargs -n 1 git branch -d
+  rs      = rebase --skip
+  s       = status
+  tree    = log --graph --decorate --pretty=oneline --abbrev-commit
+  wip     = !git add -A && git commit -m "WIP"
 [commit]
   template = ~/.git-commit-template
 [core]
@@ -42,3 +42,4 @@
   autocorrect = 1
 [merge]
   tool = vimdiff
+  conflictstyle = diff3
