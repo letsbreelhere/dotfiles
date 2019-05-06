@@ -21,3 +21,4 @@ Plug 'w0rp/ale'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'fidian/hexmode'
