@@ -122,3 +122,8 @@ let g:airline_theme='luna'
 set bg=dark
 
 let g:no_haskell_conceal = 1
+
+augroup rgbasm
+  au!
+  autocmd BufNewFile,BufRead *.rgbasm set syntax=rgbds
+augroup END

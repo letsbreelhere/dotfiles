@@ -14,7 +14,10 @@ source ~/.zsh/commands.zsh
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# Don't know why this doesn't happen by default.
+# Fixes an issue with backspace in normal mode with vi-mode enabled.
+# cf. https://superuser.com/questions/476532/how-can-i-make-zshs-vi-mode-behave-more-like-bashs-vi-mode
+bindkey "^?" backward-delete-char
 
 chpwd_functions=("chpwd")
 
