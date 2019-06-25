@@ -9,3 +9,4 @@ if [[ ! `type npm > /dev/null` ]]; then;
   export PATH="$(npm bin -g 2>/dev/null):$PATH"
   export PATH="$(npm bin):$PATH"
 fi
+export PATH="/usr/local/opt/node@10/bin:$PATH"
