@@ -43,3 +43,9 @@
 [merge]
   tool = vimdiff
   conflictstyle = diff3
+[color "diff"]
+  whitespace = red reverse
+[diff]
+  wsErrorHighlight=new,old
+[show]
+  wsErrorHighlight=old,new
