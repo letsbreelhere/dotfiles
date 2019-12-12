@@ -2,20 +2,6 @@
 
 pkill -f "Jitouch"
 
-tput civis
-stty -echo
-sleep 5 &
-PID=$!
-i=1
-spinner="⠈⠐⠠⠄⠂⠁"
-while kill -0 $PID 2>/dev/null; do
-  sleep 0.1
-  printf "\b${spinner:i++%${#spinner}:1}"
-done
-stty echo
-tput cnorm
-
+spinner 5
 nohup ~/Library/PreferencePanes/Jitouch.prefPane/Contents/Resources/Jitouch.app/Contents/MacOS/Jitouch > /dev/null 2>&1 &
-echo -ne "\033[2K\033[1D"
-echo "Done!"
 open /Library/PreferencePanes/Jitouch.prefPane

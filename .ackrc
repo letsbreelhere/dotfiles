@@ -1,5 +1,8 @@
 --color
 
+--ignore *.min.css
+--ignore *.min.css.scss
+--ignore *.min.js
 --ignore .git
 --ignore .svn
 --ignore .hg
@@ -17,7 +20,7 @@
 --ignore-dir=dist/
 
 --type-add=css=scss
---type-add=ruby=.haml,.rselm,.feature,.ru,.lock
+--type-add=ruby=.haml,.rselm,.feature,.ru
 --type-set=coffeescript=.coffee
 --type-set=coffee=.coffee
 --type-set=json=.json

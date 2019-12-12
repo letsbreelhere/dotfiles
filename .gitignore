@@ -1,2 +1,7 @@
 .envrc
 node_modules/
+.ignore
+.prettierrc
+.prettierrc.*
+.foreman
+.haml-lint.yml

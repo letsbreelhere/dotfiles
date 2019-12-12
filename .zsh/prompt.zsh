@@ -25,7 +25,7 @@ function custom_precmd {
   job_info=$(jobs | prompt_jobs)
   prompt_symbol=$(day_of_week_symbol)
   hostname=$(hostname)
-  return_status="%{$fg[red]%}%(?..[%?] )%{$reset_color%}"
+  return_status="%{$fg[red]%}%(?..⚠:%? )%{$reset_color%}"
   dirname=$(print -P %~)
 }
 add-zsh-hook precmd custom_precmd

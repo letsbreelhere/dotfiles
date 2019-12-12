@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  echo "usage: spinner seconds"
+  exit 1
+fi
+
+tput civis
+stty -echo
+sleep $1 &
+PID=$!
+i=1
+spinner=" ░▒▓█▓▒░"
+
+while kill -0 $PID 2>/dev/null; do
+  sleep 0.1
+  printf "\b\b${spinner:i++%${#spinner}:1}"
+done
+stty echo
+tput cnorm
+printf '\b'

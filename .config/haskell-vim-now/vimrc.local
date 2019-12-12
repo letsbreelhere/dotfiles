@@ -1,9 +1,13 @@
 map <space> <leader>
+
 map <leader>q :q<cr>
 map <leader>w :w<cr>
 
+" Mouse in normal mode only. I only use it (rarely) for scrolling.
+set mouse=n
+
 " Ugh. This keeps a palm tap on the touchpad from being detected as a
-" middle-click and pasting crap all over the buffer.
+" middle-click and pasting crap all over the buffer, even in normal mode.
 map <MiddleMouse> <Nop>
 map <2-MiddleMouse> <Nop>
 map <3-MiddleMouse> <Nop>
@@ -13,27 +17,38 @@ imap <2-MiddleMouse> <Nop>
 imap <3-MiddleMouse> <Nop>
 imap <4-MiddleMouse> <Nop>
 
+" If D means d$, then Y should mean y$.
 map Y y$
+
+" <leader> + pastebuffer-affecting commands use the system clipboard.
 map <leader>y "+y
 map <leader>Y "+y$
 map <leader>d "+d
 map <leader>D "+d$
 map <leader>p "+p
 map <leader>P "+P
+
 nmap <leader>j ddp
 nmap <leader>k ddkP
-map <silent> <leader><cr> :set hlsearch!<cr>
+
 map <silent> <leader>n :NERDTreeToggle<cr>
 map <silent> <leader><space> <nop>
 map <leader>= <C-w>=
+map <silent> <leader>l :ALEToggle<cr>
+
+" These are mapped by haskell-vim-now; unmapping makes opening the
+" tagbar two keystrokes instead of 3
+unmap <leader>tt
+unmap <leader>tg
+
+noremap <leader>t :TagbarToggle<cr>
 
 map <leader>be :BufExplorer<cr>
 
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
 
 nmap <backspace> :set hlsearch!<cr>
-map <MiddleMouse> <Nop>
-imap <MiddleMouse> <Nop>
+nmap <leader>x :ColorToggle<cr>
 
 " Don't leave visual mode after indent
 vnoremap > >gv
@@ -47,9 +62,11 @@ vnoremap U <Nop>
 set wildignorecase
 set wildmode=longest,list,full
 set wildmenu
+
 set undofile
 set undodir=$HOME/.vimundo/
 
+" Split in the more natural way
 set splitright
 set splitbelow
 
@@ -59,71 +76,95 @@ set textwidth=80
 set cursorline
 
 set virtualedit=block
-set listchars=tab:↹·,extends:⇉,precedes:⇇,trail:·,nbsp:·
-
-let g:neomake_open_list=0
-autocmd! BufWritePost * Neomake
+set listchars=tab:⇥⇥,extends:⇉,precedes:⇇,trail:·,nbsp:·
 
 if executable('ag')
+  " Use ag instead of the default CtrlP command since it's faster and doesn't
+  " need caching.
   let g:ackprg = 'ag'
-
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-
-  " K searches the project for the word under the cursor
-  nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
-
-  " In visual mode, K searches the project for the selected text
-  vnoremap K "vy:Ack! "<C-R>""<CR>
-
-  " Immensely janky find and replace.
-  " Here mostly so I remember I can do `cfdo`.
-  function Far(from, to)
-    let l:oldhighlight = g:ackhighlight
-    let g:ackhighlight = 1
-    exec "Ack '" . a:from . "'"
-    exec "cfdo %s//" . a:to . "/gc | update"
-    let g:ackhighlight = l:oldhighlight
-  endfunction
-
-  command -nargs=+ Far call Far(<f-args>)
-  command -nargs=+ Ag :Ack <args>
 endif
+
+if executable ('rg')
+  let g:ackprg = 'rg --vimgrep --no-heading'
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+endif
+
+" rg and ag are fast enough to not need caching.
+if (executable('rg') || executable('ag'))
+  let g:ctrlp_use_caching = 0
+endif
+
+" K searches the project for the word under the cursor
+nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
+
+" In visual mode, K searches the project for the selected text
+vnoremap K "vy:Ack! "<C-R>""<CR>
+
+" Immensely janky find and replace.
+" Here mostly so I remember I can do `cfdo`.
+function Far(from, to)
+  let l:oldhighlight = g:ackhighlight
+  let g:ackhighlight = 1
+  exec "Ack '" . a:from . "'"
+  exec "cfdo %s//" . a:to . "/g | update"
+  let g:ackhighlight = l:oldhighlight
+endfunction
+
+command -nargs=+ Far call Far(<f-args>)
+command -nargs=+ Ag :Ack <args>
+
+let g:prettier#autoformat = 0
+" Run prettier on save
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
+
+" Disabling haskell-vim-now annoyances
+let g:no_haskell_conceal = 1
+let g:haskellmode_completion_ghc = 0
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'ruby': ['rubocop'],
+\   'haskell': ['hlint']
+\}
+let g:ale_ruby_rubocop_options = '--safe'
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver', 'tslint'],
+\   'mustache': ['ember-template-lint'],
+\   'haskell': ['hlint']
+\}
+
+colorscheme ron
+set bg=dark
 
 " Airline styling
 let g:airline_section_x='' " Don't display filetype
 let g:airline_section_b='' " Don't display branch
 let g:airline_section_z='%p:%v' " Less flashy line:column display
-"let g:prettier#autoformat = 0
-"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
-
-" Disable haskell-vim omnifunc
-let g:haskellmode_completion_ghc = 0
-
-" neco-ghc
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-let g:necoghc_enable_detailed_browse = 1
-let g:necoghc_use_stack = 1
-
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\}
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['tsserver', 'tslint'],
-\   'mustache': ['ember-template-lint'],
-\}
-
-colorscheme ron
 let g:airline_theme='luna'
-set bg=dark
-
-let g:no_haskell_conceal = 1
 
 augroup rgbasm
   au!
   autocmd BufNewFile,BufRead *.rgbasm set syntax=rgbds
 augroup END
+
+augroup ruby
+  au!
+  autocmd BufWritePre * ALEFix
+augroup END
+
+augroup javascript
+  au!
+  autocmd BufWritePre * ALEFix
+augroup END
+
+augroup haskell
+  au!
+  autocmd BufWritePost *.hs InteroLoadCurrentFile
+augroup END
+
+" Disable ALE highlighting, for the abomination that is my current job's
+" codebase
+hi link ALEWarning none
