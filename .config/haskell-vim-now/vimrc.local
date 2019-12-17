@@ -41,6 +41,9 @@ map <silent> <leader>l :ALEToggle<cr>
 unmap <leader>tt
 unmap <leader>tg
 
+nmap <leader>it :InteroTypeInsert<cr>
+nmap <leader>io :InteroOpen<cr>
+
 noremap <leader>t :TagbarToggle<cr>
 
 map <leader>be :BufExplorer<cr>

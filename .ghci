@@ -6,8 +6,8 @@ import qualified Data.List as L
 import Text.Show.Functions
 
 :set +m
-:set prompt ".> "
-:set prompt2 ".| "
+:set prompt "λ: "
+:set prompt-cont " | "
 :set -XOverloadedStrings
 
 :def hoogle return . (++ "| head -n 30") . (":! hoogle " ++) . show
