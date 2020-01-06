@@ -1,7 +1,30 @@
+source ~/.config/nvim/plugins.vim
+
+" Use indentation for folds
+set foldmethod=indent
+set foldnestmax=5
+set foldlevelstart=99
+set foldcolumn=0
+
+augroup vimrcFold
+  " fold vimrc itself by categories
+  autocmd!
+  autocmd FileType vim set foldmethod=marker
+  autocmd FileType vim set foldlevel=0
+augroup END
+
+" Sets how many lines of history VIM has to remember
+set history=700
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
 map <space> <leader>
 
 map <leader>q :q<cr>
 map <leader>w :w<cr>
+
+map <leader>sl :vs<cr>
 
 " Mouse in normal mode only. I only use it (rarely) for scrolling.
 set mouse=n
@@ -21,12 +44,18 @@ imap <4-MiddleMouse> <Nop>
 map Y y$
 
 " <leader> + pastebuffer-affecting commands use the system clipboard.
-map <leader>y "+y
-map <leader>Y "+y$
-map <leader>d "+d
-map <leader>D "+d$
-map <leader>p "+p
-map <leader>P "+P
+nmap <leader>y "+y
+nmap <leader>Y "+y$
+nmap <leader>d "+d
+nmap <leader>D "+d$
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>y "+y
+vmap <leader>Y "+y$
+vmap <leader>d "+d
+vmap <leader>D "+d$
+vmap <leader>p "+p
+vmap <leader>P "+P
 
 nmap <leader>j ddp
 nmap <leader>k ddkP
@@ -35,11 +64,6 @@ map <silent> <leader>n :NERDTreeToggle<cr>
 map <silent> <leader><space> <nop>
 map <leader>= <C-w>=
 map <silent> <leader>l :ALEToggle<cr>
-
-" These are mapped by haskell-vim-now; unmapping makes opening the
-" tagbar two keystrokes instead of 3
-unmap <leader>tt
-unmap <leader>tg
 
 nmap <leader>it :InteroTypeInsert<cr>
 nmap <leader>io :InteroOpen<cr>
@@ -63,8 +87,9 @@ vnoremap u <Nop>
 vnoremap U <Nop>
 
 set wildignorecase
-set wildmode=longest,list,full
+set wildmode=list:longest,full
 set wildmenu
+set backspace=eol,start,indent
 
 set undofile
 set undodir=$HOME/.vimundo/
@@ -79,7 +104,6 @@ set textwidth=80
 set cursorline
 
 set virtualedit=block
-set listchars=tab:⇥⇥,extends:⇉,precedes:⇇,trail:·,nbsp:·
 
 if executable('ag')
   " Use ag instead of the default CtrlP command since it's faster and doesn't
@@ -171,3 +195,103 @@ augroup END
 " Disable ALE highlighting, for the abomination that is my current job's
 " codebase
 hi link ALEWarning none
+
+" Colors and Fonts {{{
+
+try
+  colorscheme wombat256mod
+catch
+endtry
+
+" Adjust signscolumn to match wombat
+hi! link SignColumn LineNr
+
+" Use pleasant but very visible search hilighting
+hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
+hi! link Visual Search
+
+" Match wombat colors in nerd tree
+hi Directory guifg=#8ac6f2
+
+" Searing red very visible cursor
+hi Cursor guibg=red
+
+" Don't blink normal mode cursor
+set guicursor=n-v-c:block-Cursor
+set guicursor+=n-v-c:blinkon0
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+  set guioptions-=T
+  set guioptions-=e
+  set guitablabel=%M\ %t
+endif
+set t_Co=256
+
+" Set utf8 as standard encoding and en_US as the standard language
+if !has('nvim')
+  " Only set this for vim, since neovim is utf8 as default and setting it
+  " causes problems when reloading the .vimrc configuration
+  set encoding=utf8
+endif
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Use large font by default in MacVim
+set gfn=Monaco:h19
+
+" Use powerline fonts for airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_powerline_fonts = 1
+let g:airline_symbols.space = "\ua0"
+" }}}
+
+" Manually create key mappings (to avoid rebinding C-\)
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+
+" Open window splits in various places
+nmap <leader>sh :leftabove  vnew<CR>
+nmap <leader>sl :rightbelow vnew<CR>
+nmap <leader>sk :leftabove  new<CR>
+nmap <leader>sj :rightbelow new<CR>
+
+" Kill the damned Ex mode.
+nnoremap Q <nop>
+" Show trailing whitespace
+set list
+" But only interesting whitespace
+if &listchars ==# 'eol:$'
+  set listchars=tab:⇥⇥,extends:⇉,precedes:⇇,trail:·,nbsp:·
+endif
+" Height of the command bar
+set cmdheight=1
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+" Ignore case when searching
+set ignorecase
+" When searching try to be smart about cases
+set smartcase
+" Highlight search results
+set hlsearch
+" Makes search act like search in modern browsers
+set incsearch
+
+" Use spaces instead of tabs
+set expandtab
+
+" 1 tab == 2 spaces, unless the file is already
+" using tabs, in which case tabs will be inserted.
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set ai "Auto indent
+set si "Smart indent

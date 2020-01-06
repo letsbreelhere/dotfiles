@@ -25,7 +25,7 @@
 [commit]
   template = ~/.git-commit-template
 [core]
-  editor = /usr/bin/vim
+	editor = /usr/bin/vim
   excludesfile = ~/.gitignore
 [color]
   branch      = true
