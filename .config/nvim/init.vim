@@ -24,8 +24,6 @@ map <space> <leader>
 map <leader>q :q<cr>
 map <leader>w :w<cr>
 
-map <leader>sl :vs<cr>
-
 " Mouse in normal mode only. I only use it (rarely) for scrolling.
 set mouse=n
 
@@ -163,9 +161,6 @@ let g:ale_linters = {
 \   'haskell': ['hlint']
 \}
 
-colorscheme ron
-set bg=dark
-
 " Airline styling
 let g:airline_section_x='' " Don't display filetype
 let g:airline_section_b='' " Don't display branch
@@ -249,6 +244,9 @@ endif
 let g:airline_powerline_fonts = 1
 let g:airline_symbols.space = "\ua0"
 " }}}
+
+colorscheme ron
+set bg=dark
 
 " Manually create key mappings (to avoid rebinding C-\)
 let g:tmux_navigator_no_mappings = 1
