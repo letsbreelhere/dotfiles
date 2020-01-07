@@ -118,9 +118,6 @@ augroup sourcing
   endif
 augroup END
 
-" Open file prompt with current path
-nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
-
 " Show undo tree
 nmap <silent> <leader>u :MundoToggle<CR>
 
