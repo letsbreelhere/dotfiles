@@ -1,6 +1,7 @@
 map <space> <leader>
 
 "Fixing Pet Peeves {{{
+
 " Ugh. This keeps a palm tap on the touchpad from being detected as a
 " middle-click and pasting crap all over the buffer, even in normal mode.
 map <MiddleMouse> <Nop>
@@ -23,8 +24,13 @@ vnoremap < <gv
 
 " If D means d$, then Y should mean y$.
 map Y y$
+
 " Make * useful in visual mode
 vmap <silent> * y/<c-r>"<cr>
+
+" Kill the damned Ex mode.
+nnoremap Q <nop>
+
 " }}}
 
 " Leader Mappings {{{
@@ -80,11 +86,3 @@ nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
 
 " In visual mode, K searches the project for the selected text
 vnoremap K "vy:Ack! "<C-R>""<CR>
-
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-
-" Kill the damned Ex mode.
-nnoremap Q <nop>

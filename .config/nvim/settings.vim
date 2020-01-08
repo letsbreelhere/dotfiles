@@ -32,7 +32,21 @@ set wildmode=list:longest,full
 set wildmenu
 set backspace=eol,start,indent
 set undofile
-set undodir=$HOME/.vimundo/
+
+if !isdirectory($HOME."/tmp/vimundo")
+    call mkdir($HOME."/tmp/vimundo", "p")
+endif
+set undodir=$HOME/tmp/vimundo//
+
+if !isdirectory($HOME."/tmp/vimbackup")
+    call mkdir($HOME."/tmp/vimbackup", "p")
+endif
+set backupdir=$HOME/tmp/vimbackup//
+
+if !isdirectory("$HOME./tmp/vimswap")
+    call mkdir($HOME."/tmp/vimswap", "p")
+endif
+set directory=$HOME/tmp/vimswap//
 
 " Split in the more natural way
 set splitright
@@ -66,3 +80,6 @@ augroup END
 
 " Sets how many lines of history VIM has to remember
 set history=700
+
+" Stop the horrible 'existing swap file!' warnings
+set shortmess+=A

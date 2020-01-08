@@ -2,6 +2,8 @@ source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/settings.vim
 source ~/.config/nvim/mappings.vim
 
+" Plugin config {{{
+
 if executable('ag')
   " Use ag instead of the default CtrlP command since it's faster and doesn't
   " need caching.
@@ -10,6 +12,7 @@ if executable('ag')
 endif
 
 if executable ('rg')
+  " rg? Even better!
   let g:ackprg = 'rg --vimgrep --no-heading'
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 endif
@@ -36,10 +39,6 @@ let g:prettier#autoformat = 0
 " Run prettier on save
 "autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
 
-" Disabling haskell-vim-now annoyances
-let g:no_haskell_conceal = 1
-let g:haskellmode_completion_ghc = 0
-
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
@@ -57,8 +56,45 @@ let g:ale_linters = {
 " Airline styling
 let g:airline_section_x='' " Don't display filetype
 let g:airline_section_b='' " Don't display branch
-let g:airline_section_z='%p:%v' " Less flashy line:column display
-let g:airline_theme='luna'
+" Less flashy line:column display
+let g:airline_section_z="%p%% L:%l/%L C:%v/%{strlen(getline('.'))}"
+let g:airline_theme='bubblegum'
+
+" }}}
+
+" Colors and Fonts {{{
+
+colorscheme ron
+set bg=dark
+
+" Use pleasant but very visible search hilighting
+hi Search ctermfg=white ctermbg=75 cterm=none
+hi! link Visual Search
+
+" Don't blink normal mode cursor
+set guicursor=n-v-c:block-Cursor
+set guicursor+=n-v-c:blinkon0
+
+" Set utf8 as standard encoding and en_US as the standard language
+if !has('nvim')
+  " Only set this for vim, since neovim is utf8 as default and setting it
+  " causes problems when reloading the .vimrc configuration
+  set encoding=utf8
+endif
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Use powerline fonts for airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_powerline_fonts = 1
+let g:airline_symbols.space = "\ua0"
+" }}}
+
+" Filetype specific {{{
 
 augroup rgbasm
   au!
@@ -80,54 +116,4 @@ augroup haskell
   autocmd BufWritePost *.hs InteroLoadCurrentFile
 augroup END
 
-" Colors and Fonts {{{
-
-try
-  colorscheme wombat256mod
-catch
-endtry
-
-" Adjust signscolumn to match wombat
-hi! link SignColumn LineNr
-
-" Use pleasant but very visible search hilighting
-hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
-hi! link Visual Search
-
-" Match wombat colors in nerd tree
-hi Directory guifg=#8ac6f2
-
-" Searing red very visible cursor
-hi Cursor guibg=red
-
-" Don't blink normal mode cursor
-set guicursor=n-v-c:block-Cursor
-set guicursor+=n-v-c:blinkon0
-
-" Set utf8 as standard encoding and en_US as the standard language
-if !has('nvim')
-  " Only set this for vim, since neovim is utf8 as default and setting it
-  " causes problems when reloading the .vimrc configuration
-  set encoding=utf8
-endif
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-" Use large font by default in MacVim
-set gfn=Monaco:h19
-
-" Use powerline fonts for airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_powerline_fonts = 1
-let g:airline_symbols.space = "\ua0"
-
-colorscheme ron
-set bg=dark
 " }}}
-
-" Manually create key mappings (to avoid rebinding C-\)
-let g:tmux_navigator_no_mappings = 1
