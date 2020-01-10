@@ -1,16 +1,36 @@
 #!/usr/bin/env ruby
+
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: setup [options]"
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+
+  opts.on("-d", "--dry-run", "Run but do not create symlinks (implies verbosity)") do |d|
+    options[:verbose] = d
+    options[:dry_run] = d
+  end
+end.parse!
+
 IGNORED_DIRS = %w{.git/}
 IGNORED_FILES = %w{setup}
-TARGET_DIR = "$HOME"
-THIS_DIR=%x{cd "$( dirname "$0" )" && pwd}.strip
 
-files = Dir.glob("**/*", File::FNM_DOTMATCH).reject do |f|
-  File.directory?(f) || f.start_with?(*IGNORED_DIRS) || IGNORED_FILES.any? { |f2| f == f2 }
-end
+Dir.glob("**/*", File::FNM_DOTMATCH) do |file|
+  next if File.directory?(file) || file.start_with?(*IGNORED_DIRS) || IGNORED_FILES.include?(file)
 
-files.each do |file|
-  full_path = File.join(THIS_DIR, file)
-  new_path = File.join(TARGET_DIR, file)
+  full_path = File.join(__dir__, file)
+  new_path = File.join(ENV['HOME'], file)
   new_dir = File.dirname(new_path)
-  %x(mkdir -p #{new_dir} && ln -nfs #{full_path} #{new_dir})
+
+  if options[:verbose]
+    puts "#{full_path} -> #{new_dir}"
+  end
+
+  unless options[:dry_run]
+    %x(mkdir -p #{new_dir} && ln -nfs #{full_path} #{new_dir})
+  end
 end

@@ -33,20 +33,20 @@ set wildmenu
 set backspace=eol,start,indent
 set undofile
 
-if !isdirectory($HOME."/tmp/vimundo")
-    call mkdir($HOME."/tmp/vimundo", "p")
+if !isdirectory($HOME."/tmp/vim/undo")
+    call mkdir($HOME."/tmp/vim/undo", "p")
 endif
-set undodir=$HOME/tmp/vimundo//
+set undodir=$HOME/tmp/vim/undo//
 
-if !isdirectory($HOME."/tmp/vimbackup")
-    call mkdir($HOME."/tmp/vimbackup", "p")
+if !isdirectory($HOME."/tmp/vim/backup")
+    call mkdir($HOME."/tmp/vim/backup", "p")
 endif
-set backupdir=$HOME/tmp/vimbackup//
+set backupdir=$HOME/tmp/vim/backup//
 
-if !isdirectory("$HOME./tmp/vimswap")
-    call mkdir($HOME."/tmp/vimswap", "p")
+if !isdirectory($HOME."/tmp/vim/swap")
+    call mkdir($HOME."/tmp/vim/swap", "p")
 endif
-set directory=$HOME/tmp/vimswap//
+set directory=$HOME/tmp/vim/swap//
 
 " Split in the more natural way
 set splitright
