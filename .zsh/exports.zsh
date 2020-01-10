@@ -1,7 +1,6 @@
 # CLI Colors (e.g. for `ls`)
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH"
 export EDITOR=nvim
 
 # Paths

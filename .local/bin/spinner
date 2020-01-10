@@ -12,10 +12,16 @@ PID=$!
 i=1
 spinner=" ░▒▓█▓▒░"
 
+finish() {
+  stty echo
+  tput cnorm
+  printf '\b'
+}
+
+trap 'finish; exit 130;' INT
+
 while kill -0 $PID 2>/dev/null; do
   sleep 0.1
   printf "\b\b${spinner:i++%${#spinner}:1}"
 done
-stty echo
-tput cnorm
-printf '\b'
+finish

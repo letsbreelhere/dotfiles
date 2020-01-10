@@ -71,10 +71,6 @@ set bg=dark
 hi Search ctermfg=white ctermbg=75 cterm=none
 hi! link Visual Search
 
-" Don't blink normal mode cursor
-set guicursor=n-v-c:block-Cursor
-set guicursor+=n-v-c:blinkon0
-
 " Set utf8 as standard encoding and en_US as the standard language
 if !has('nvim')
   " Only set this for vim, since neovim is utf8 as default and setting it
@@ -91,7 +87,6 @@ if !exists('g:airline_symbols')
 endif
 
 let g:airline_powerline_fonts = 1
-let g:airline_symbols.space = "\ua0"
 " }}}
 
 " Filetype specific {{{

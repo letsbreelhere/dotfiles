@@ -1,12 +1,12 @@
 function day_of_week_symbol {
   case $(date +%u) in
-    1) echo "☾";;
-    2) echo "♂";;
-    3) echo "☿";;
-    4) echo "♃";;
-    5) echo "♀";;
-    6) echo "♄";;
-    7) echo "☉";;
+    1) echo "☾";; # Monday (Moon; Luna)
+    2) echo "♂";; # Tuesday (Tiw; Mars)
+    3) echo "☿";; # Wednesday (Wodin; Mercury)
+    4) echo "♃";; # Thursday (Thor; Jupiter)
+    5) echo "♀";; # Friday (Frigg; Venus)
+    6) echo "♄";; # Saturday (Saturn)
+    7) echo "☉";; # Sunday (Sun; Sol)
   esac
 }
 
@@ -25,9 +25,10 @@ function custom_precmd {
   job_info=$(jobs | prompt_jobs)
   prompt_symbol=$(day_of_week_symbol)
   hostname=$(hostname)
-  return_status="%{$fg[red]%}%(?..⚠:%? )%{$reset_color%}"
+  return_status="%{$fg[red]%}%(?..⚠:%?)%{$reset_color%}"
   dirname=$(print -P %~)
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='${return_status}%{$fg[magenta]%}${job_info}%{$fg[blue]%}${dirname}%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%} %{$fg[magenta]%}${prompt_symbol} %{$reset_color%}'
+PROMPT='%{$fg[magenta]%}${job_info}%{$fg[blue]%}${dirname}%{$fg[green]%}${vcs_info_msg_0_}${vcs_status_string}%{$reset_color%} %{$fg[magenta]%}${prompt_symbol} %{$reset_color%}'
+RPROMPT='${return_status}'
