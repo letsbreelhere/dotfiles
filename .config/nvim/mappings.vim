@@ -53,6 +53,7 @@ nmap <leader>k ddkP
 
 map <leader>q :q<cr>
 map <leader>w :w<cr>
+nmap <leader>x :x<cr>
 
 " Open file prompt with current path
 nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
@@ -68,7 +69,6 @@ nmap <leader>io :InteroOpen<cr>
 noremap <silent> <leader>t :TagbarToggle<cr>
 
 map <leader>be :BufExplorer<cr>
-nmap <leader>x :ColorToggle<cr>
 
 " Open window splits in various places
 nmap <leader>sh :leftabove  vnew<CR>
