@@ -48,6 +48,16 @@ if !isdirectory($HOME."/tmp/vim/swap")
 endif
 set directory=$HOME/tmp/vim/swap//
 
+" Tell vim to remember certain things when we exit
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "100 :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+set viminfo='10,\"100,:20,%
+" Move to previous mark on reopen
+autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
 " Split in the more natural way
 set splitright
 set splitbelow

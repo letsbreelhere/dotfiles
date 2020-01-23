@@ -18,6 +18,8 @@
 --ignore-dir=ios/
 --ignore-file=match:tags
 --ignore-dir=dist/
+--ignore-dir=tmp/
+--ignore-dir=spec/cassettes/
 
 --type-add=css=scss
 --type-add=ruby=.haml,.rselm,.feature,.ru

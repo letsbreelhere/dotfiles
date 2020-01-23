@@ -1,4 +1,5 @@
 map <space> <leader>
+nmap <space><space> <Plug>(easymotion-prefix)
 
 "Fixing Pet Peeves {{{
 
@@ -52,6 +53,7 @@ nmap <leader>j ddp
 nmap <leader>k ddkP
 
 map <leader>q :q<cr>
+map <leader>Q :q!<cr>
 map <leader>w :w<cr>
 nmap <leader>x :x<cr>
 

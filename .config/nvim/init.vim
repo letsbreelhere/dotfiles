@@ -1,6 +1,4 @@
 source ~/.config/nvim/plugins.vim
-source ~/.config/nvim/settings.vim
-source ~/.config/nvim/mappings.vim
 
 " Plugin config {{{
 
@@ -21,6 +19,8 @@ endif
 if (executable('rg') || executable('ag'))
   let g:ctrlp_use_caching = 0
 endif
+
+map <C-o> :CtrlPMixed<cr>
 
 " Immensely janky find and replace.
 " Here mostly so I remember I can do `cfdo`.
@@ -53,13 +53,6 @@ let g:ale_linters = {
 \   'haskell': ['hlint']
 \}
 
-" Airline styling
-let g:airline_section_x='' " Don't display filetype
-let g:airline_section_b='' " Don't display branch
-" Less flashy line:column display
-let g:airline_section_z="%p%% L:%l/%L C:%v/%{strlen(getline('.'))}"
-let g:airline_theme='bubblegum'
-
 " }}}
 
 " Colors and Fonts {{{
@@ -67,6 +60,8 @@ let g:airline_theme='bubblegum'
 colorscheme ron
 set bg=dark
 
+
+hi StatusLine ctermfg=black ctermbg=75
 " Use pleasant but very visible search hilighting
 hi Search ctermfg=white ctermbg=75 cterm=none
 hi! link Visual Search
@@ -80,13 +75,6 @@ endif
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
-
-" Use powerline fonts for airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_powerline_fonts = 1
 " }}}
 
 " Filetype specific {{{
@@ -111,4 +99,13 @@ augroup haskell
   autocmd BufWritePost *.hs InteroLoadCurrentFile
 augroup END
 
+augroup tmux
+  au!
+  autocmd Syntax tmux setlocal foldmethod=marker
+  autocmd Syntax tmux normal zM
+augroup END
+
 " }}}
+
+source ~/.config/nvim/settings.vim
+source ~/.config/nvim/mappings.vim
