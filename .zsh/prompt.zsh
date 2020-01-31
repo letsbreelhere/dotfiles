@@ -22,7 +22,7 @@ function custom_precmd {
     vcs_status_string=" %{$fg[red]%}$unadded_files %{$fg[green]%}$added_files%{$fg[cyan]%}"
   fi
 
-  job_info=$(jobs | awk '{print $NF ":" substr($1,2,1) " " }' | tr -d "\n")
+  job_info=$(jobs | sed -E 's/^\[([[:digit:]]+)\].*suspended[[:space:]]+([[:alpha:]]+).*$/\2:\1 /')
   prompt_symbol=$(day_of_week_symbol)
   hostname=$(hostname)
   return_status="%{$fg[red]%}%(?..⚠:%?)%{$reset_color%}"
