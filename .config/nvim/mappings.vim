@@ -81,7 +81,7 @@ nmap <leader>sj :rightbelow new<CR>
 
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
 
-nmap <backspace> :set hlsearch!<cr>
+nmap <silent> <backspace> :set hlsearch!<cr>
 
 " K searches the project for the word under the cursor
 nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>

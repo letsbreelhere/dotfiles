@@ -93,3 +93,6 @@ set history=700
 
 " Stop the horrible 'existing swap file!' warnings
 set shortmess+=A
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac

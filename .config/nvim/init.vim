@@ -55,26 +55,16 @@ let g:ale_linters = {
 
 " }}}
 
-" Colors and Fonts {{{
+" Colors {{{
 
 colorscheme ron
 set bg=dark
 
-
 hi StatusLine ctermfg=black ctermbg=75
-" Use pleasant but very visible search hilighting
+" Use pleasant but visible search highlighting
 hi Search ctermfg=white ctermbg=75 cterm=none
 hi! link Visual Search
 
-" Set utf8 as standard encoding and en_US as the standard language
-if !has('nvim')
-  " Only set this for vim, since neovim is utf8 as default and setting it
-  " causes problems when reloading the .vimrc configuration
-  set encoding=utf8
-endif
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
 " }}}
 
 " Filetype specific {{{
