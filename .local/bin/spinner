@@ -11,6 +11,7 @@ sleep $1 &
 PID=$!
 i=1
 spinner=" ░▒▓█▓▒░"
+spinner="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
 
 finish() {
   stty echo
@@ -21,7 +22,7 @@ finish() {
 trap 'finish; exit 130;' INT
 
 while kill -0 $PID 2>/dev/null; do
-  sleep 0.1
+  sleep 0.05
   printf "\b\b${spinner:i++%${#spinner}:1}"
 done
 finish

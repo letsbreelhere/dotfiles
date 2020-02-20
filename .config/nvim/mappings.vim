@@ -1,5 +1,4 @@
 map <space> <leader>
-nmap <space><space> <Plug>(easymotion-prefix)
 
 "Fixing Pet Peeves {{{
 
@@ -35,6 +34,9 @@ nnoremap Q <nop>
 " }}}
 
 " Leader Mappings {{{
+
+nmap <leader><space> <Plug>(easymotion-prefix)
+
 " <leader> + pastebuffer-affecting commands use the system clipboard.
 nmap <leader>y "+y
 nmap <leader>Y "+y$
@@ -61,12 +63,7 @@ nmap <leader>x :x<cr>
 nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 
 map <silent> <leader>n :NERDTreeToggle<cr>
-map <silent> <leader><space> <nop>
 map <leader>= <C-w>=
-map <silent> <leader>l :ALEToggle<cr>
-
-nmap <leader>it :InteroTypeInsert<cr>
-nmap <leader>io :InteroOpen<cr>
 
 noremap <silent> <leader>t :TagbarToggle<cr>
 
@@ -77,6 +74,10 @@ nmap <leader>sh :leftabove  vnew<CR>
 nmap <leader>sl :rightbelow vnew<CR>
 nmap <leader>sk :leftabove  new<CR>
 nmap <leader>sj :rightbelow new<CR>
+
+map <leader>l <plug>(easymotion-bd-jk)
+nmap <leader>l <plug>(easymotion-overwin-line)
+
 " }}}
 
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>

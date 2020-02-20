@@ -41,7 +41,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " Filetype-specific
 Plug 'prettier/vim-prettier'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
