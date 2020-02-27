@@ -76,12 +76,12 @@ augroup END
 
 augroup ruby
   au!
-  autocmd BufWritePre * ALEFix
+  "autocmd BufWritePre * ALEFix
 augroup END
 
 augroup javascript
   au!
-  autocmd BufWritePre * ALEFix
+  "autocmd BufWritePre * ALEFix
 augroup END
 
 augroup haskell
