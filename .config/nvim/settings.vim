@@ -53,8 +53,8 @@ set directory=$HOME/tmp/vim/swap//
 "  "100 :  will save up to 100 lines for each register
 "  :20  :  up to 20 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
 set viminfo='10,\"100,:20,%
+
 " Move to previous mark on reopen
 autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
@@ -96,3 +96,5 @@ set shortmess+=A
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+set statusline=%f\ %m\ %h\ %r\ %q%=C%-3c%4l/%-4L\ 0x%04B

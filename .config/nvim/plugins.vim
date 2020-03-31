@@ -39,7 +39,6 @@ Plug 'Raimondi/delimitMate'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Filetype-specific
-Plug 'prettier/vim-prettier'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
@@ -56,8 +55,8 @@ Plug 'chrisbra/Colorizer'
 
 " Filetypes
 Plug 'othree/xml.vim'
-Plug 'mxw/vim-jsx'
-Plug 'neoclide/vim-jsx-improve'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'mustache/vim-mustache-handlebars'
 

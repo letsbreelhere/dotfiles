@@ -1,7 +1,7 @@
 function custom_precmd {
   vcs_info
   git_status=$(git status --porcelain 2>/dev/null)
-  unadded_files=$(echo $git_status | egrep '^.[?ACMDR] ' | wc -l | awk {'print $1'})
+  unadded_files=$(echo $git_status | egrep '^.[?ACMDRU] ' | wc -l | awk {'print $1'})
   added_files=$(echo $git_status   | egrep '^[ACMDR]. '  | wc -l | awk {'print $1'})
 
   if [ $added_files -eq 0 ] && [ $unadded_files -eq 0 ]; then
@@ -12,10 +12,10 @@ function custom_precmd {
 
   job_info=$(jobs | sed -E 's/\([^)]*\)//' | sed -E 's/^\[([[:digit:]]+)\].*suspended[[:space:]]+([[:alpha:]]+).*$/\2:\1/' | tr '\n+' ' ')
   hostname=$(hostname)
-  return_status="%F{196}%(?..⚠:%? )%F{}"
+  return_status="%F{196}%(?..⚠:%? )%F{reset}"
   dirname=$(print -P %~)
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='%F{237}┌%K{237}${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{}%F{237}
-%F{237}└⮞%F{}%K{} '
+PROMPT='%F{237}┌%K{237}${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{237}
+%F{237}└⮞%F{reset}%K{reset} '

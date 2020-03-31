@@ -35,8 +35,8 @@ endfunction
 command -nargs=+ Far call Far(<f-args>)
 command -nargs=+ Ag :Ack <args>
 
-let g:prettier#autoformat = 0
 " Run prettier on save
+"let g:prettier#autoformat = 0
 "autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
 
 let g:ale_fixers = {
@@ -60,7 +60,7 @@ let g:ale_linters = {
 colorscheme ron
 set bg=dark
 
-hi StatusLine ctermfg=black ctermbg=75
+hi StatusLine ctermfg=yellow ctermbg=black
 " Use pleasant but visible search highlighting
 hi Search ctermfg=white ctermbg=75 cterm=none
 hi! link Visual Search
