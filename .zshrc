@@ -27,10 +27,3 @@ function chpwd() {
     source $PWD/.zsh_config
   fi
 }
-
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/bin:$PATH"
-
-eval "$(direnv hook zsh)"
-source ~/.zsh/exports.zsh
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
