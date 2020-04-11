@@ -6,7 +6,7 @@ import qualified Data.List as L
 import Text.Show.Functions
 
 :set +m
-:set prompt "λ: "
+:set prompt "λ> "
 :set prompt-cont " | "
 :set -XOverloadedStrings
 
