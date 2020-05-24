@@ -86,7 +86,8 @@ hi! link Visual Search
 
 augroup rgbasm
   au!
-  autocmd BufNewFile,BufRead *.rgbasm set syntax=rgbds
+  autocmd BufNewFile,BufRead *.asm,*.inc set filetype=rgbds
+  autocmd BufNewFile,BufRead *.asm,*.inc set syntax=rgbds
 augroup END
 
 augroup ruby

@@ -9,3 +9,4 @@ alias killbg='kill -9 ${${(v)jobstates##*:*:}%=*}'
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias ls='ls --color=auto'
+alias open=xdg-open

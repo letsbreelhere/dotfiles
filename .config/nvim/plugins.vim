@@ -61,6 +61,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'rust-lang/rust.vim'
+Plug 'EmmaEwert/vim-rgbds'
 
 " Misc
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
