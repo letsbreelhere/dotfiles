@@ -12,6 +12,7 @@ Plug 'vim-scripts/gitignore'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'int3/vim-extradite'
+Plug 'k0kubun/vim-open-github'
 
 " Bars, panels, and files
 Plug 'scrooloose/nerdtree'

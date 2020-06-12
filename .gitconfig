@@ -22,6 +22,7 @@
   s       = status
   tree    = log --graph --decorate --pretty=oneline --abbrev-commit
   wip     = !git add -A && git commit -m "WIP"
+  kick    = !g commit -m "Kick CI" --allow-empty && g push
 [commit]
   template = ~/.git-commit-template
 [core]
