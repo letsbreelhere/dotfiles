@@ -37,6 +37,4 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 source ~/.zsh/exports.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
