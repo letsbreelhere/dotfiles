@@ -14,6 +14,7 @@
   cp      = cherry-pick
   d       = diff
   dc      = diff --cached
+  kick    = !g commit -m "Kick CI" --allow-empty && g push
   latest  = branch --sort=committerdate
   no      = diff --name-only
   pop     = stash pop
@@ -22,11 +23,10 @@
   s       = status
   tree    = log --graph --decorate --pretty=oneline --abbrev-commit
   wip     = !git add -A && git commit -m "WIP"
-  kick    = !g commit -m "Kick CI" --allow-empty && g push
 [commit]
   template = ~/.git-commit-template
 [core]
-  editor = /usr/local/bin/nvim
+  editor = nvim
   excludesfile = ~/.gitignore
 [color]
   branch      = true

@@ -95,6 +95,14 @@ augroup tmux
   autocmd Syntax tmux normal zM
 augroup END
 
+augroup rust
+  au!
+  autocmd Syntax rust set tabstop=2
+  autocmd Syntax rust set expandtab
+  autocmd Syntax rust set shiftwidth=2
+  au BufWritePost *.rs NeomakeProject
+augroup END
+
 " }}}
 
 source ~/.config/nvim/settings.vim
