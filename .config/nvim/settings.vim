@@ -98,3 +98,6 @@ set shortmess+=A
 set ffs=unix,dos,mac
 
 set statusline=%f\ %m\ %h\ %r\ %q%=C%-3c%4l/%-4L\ 0x%04B
+
+" Not having this makes webpack server unhappy. Bleh.
+set backupcopy=yes

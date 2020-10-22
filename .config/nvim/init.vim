@@ -53,6 +53,21 @@ let g:ale_linters = {
 \   'haskell': ['hlint']
 \}
 
+let g:neomake_haskell_enabled_makers = ['ghc_mod']
+let g:neomake_haskell_ghcmod_maker = {
+    \ 'exe': 'ghc-mod',
+    \ 'args': ['check'],
+    \ 'errorformat': 
+        \ '%-G%\s%#,' .
+        \ '%f:%l:%c:%trror: %m,' .
+        \ '%f:%l:%c:%tarning: %m,'.
+        \ '%f:%l:%c: %trror: %m,' .
+        \ '%f:%l:%c: %tarning: %m,' .
+        \ '%f:%l:%c:%m,' .
+        \ '%E%f:%l:%c:,' .
+        \ '%Z%m'
+    \ }
+
 " }}}
 
 " Colors {{{
@@ -86,7 +101,6 @@ augroup END
 
 augroup haskell
   au!
-  autocmd BufWritePost *.hs InteroLoadCurrentFile
 augroup END
 
 augroup tmux

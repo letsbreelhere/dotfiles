@@ -8,6 +8,7 @@ Plug 'benekastah/neomake'
 Plug 'moll/vim-bbye'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-scripts/gitignore'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -45,7 +46,6 @@ Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
 Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
-Plug 'parsonsmatt/intero-neovim'
 
 " Colorscheme
 Plug 'vim-scripts/wombat256.vim'

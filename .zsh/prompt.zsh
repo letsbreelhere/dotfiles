@@ -10,7 +10,7 @@ function custom_precmd {
     vcs_status_string=" %F{red}$unadded_files %F{green}$added_files%F{cyan}"
   fi
 
-  job_info=$(jobs | sed -E 's/\([^)]*\)//' | sed -E 's/^\[([[:digit:]]+)\].*suspended[[:space:]]+([[:alpha:]]+).*$/\2:\1/' | tr '\n+' ' ')
+  job_info=$(jobs | tail -r | sed -E 's/\([^)]*\)//' | sed -E 's/^\[([[:digit:]]+)\].*suspended[[:space:]]+([[:alpha:]]+).*$/\2:\1/' | tr '\n+' ' ')
   hostname=$(hostname)
   return_status="%F{196}%(?..⚠:%? )%F{reset}"
   dirname=$(print -P %~)
