@@ -33,6 +33,10 @@ set wildmenu
 set backspace=eol,start,indent
 set undofile
 
+" why
+" https://stackoverflow.com/questions/44251106/tabbing-in-deoplete-is-backward
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
 if !isdirectory($HOME."/tmp/vim/undo")
     call mkdir($HOME."/tmp/vim/undo", "p")
 endif
