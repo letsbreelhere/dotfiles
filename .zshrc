@@ -9,6 +9,9 @@ source ~/.zsh/completion.zsh
 source ~/.zsh/vcs.zsh
 source ~/.zsh/prompt.zsh
 source ~/.zsh/aliases.zsh
+if [ -r ~/.zsh/secrets ]; then
+  source ~/.zsh/secrets.zsh
+fi
 
 bindkey -v
 bindkey '^R' history-incremental-search-backward
