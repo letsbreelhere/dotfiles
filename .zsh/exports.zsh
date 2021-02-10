@@ -11,4 +11,5 @@ export PATH="/usr/local/dev-env/bin:$PATH"
 export PATH="$HOME/dev/jenkins-shared-libraries/bin:$PATH"
 export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PWD/.local/bin:$PATH"
+export PATH=${PATH}:/usr/local/dev-env/bin
+export DASH_CONFIG=/usr/local/dev-env

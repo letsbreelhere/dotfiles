@@ -38,3 +38,6 @@ source ~/.zsh/exports.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
+
+# C-s freezes the terminal until you hit C-q. I never want that to happen.
+stty -ixon
