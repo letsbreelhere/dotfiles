@@ -17,7 +17,7 @@ OptionParser.new do |opts|
 end.parse!
 
 IGNORED_DIRS = %w{.git/ .git}
-IGNORED_FILES = %w{setup}
+IGNORED_FILES = %w{setup README.md}
 
 Dir.glob("**/*", File::FNM_DOTMATCH) do |file|
   next if File.directory?(file) || file.start_with?(*IGNORED_DIRS) || IGNORED_FILES.include?(file)
