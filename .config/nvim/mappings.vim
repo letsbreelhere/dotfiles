@@ -51,6 +51,8 @@ vmap <leader>D "+d$
 vmap <leader>p "+p
 vmap <leader>P "+P
 
+"nmap gj J
+"nnoremap J 3j
 nmap <leader>j ddp
 nmap <leader>k ddkP
 

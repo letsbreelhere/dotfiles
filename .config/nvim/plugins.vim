@@ -20,6 +20,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Text manipulation
 Plug 'jlanzarotta/bufexplorer'

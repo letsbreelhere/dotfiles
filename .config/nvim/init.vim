@@ -80,6 +80,13 @@ hi StatusLine ctermfg=yellow ctermbg=black
 hi Search ctermfg=white ctermbg=75 cterm=none
 hi! link Visual Search
 
+" Less eye-searing ALE warnings
+hi ALEWarning ctermbg=18
+
+" Use slightly difference grayscales for indent guides
+hi IndentGuidesEven ctermbg=240
+hi IndentGuidesOdd  ctermbg=250
+
 " }}}
 
 " Filetype specific {{{
