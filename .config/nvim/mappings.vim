@@ -80,6 +80,17 @@ nmap <leader>sj :rightbelow new<CR>
 map <leader>l <plug>(easymotion-bd-jk)
 nmap <leader>l <plug>(easymotion-overwin-line)
 
+" Fold mappings, because they make no sense by default
+
+" Open all folds
+nmap <leader>fa zR<cr>
+" Toggle fold
+nmap <leader>ft za<cr>
+
+" The obvious ones
+nmap <leader>fo zo<cr>
+nmap <leader>fc zc<cr>
+
 " }}}
 
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>

@@ -9,15 +9,13 @@
   b       = branch
   cb      = rev-parse --abbrev-ref HEAD
   co      = checkout
-  ci      = commit
   comit   = commit
   commmit = commit
   cp      = cherry-pick
   d       = diff
   dc      = diff --cached
-  kick    = !g commit -m "Kick CI" --allow-empty && g push
-  latest  = branch --sort=committerdate
-  no      = diff --name-only
+  kick    = !git commit -m "Kick CI" --allow-empty && g push
+  l       = "!f() { num_lines=${1:-10}; git branch --sort=committerdate --format=\"%(committerdate:relative)%09%(refname:short)\" | tail -n $num_lines; }; f"
   pop     = stash pop
   rc      = rebase --continue
   rs      = rebase --skip
@@ -36,6 +34,8 @@
   status      = true
 [push]
   default = current
+[pull]
+  rebase = true
 [clean]
   requireForce = false
 [rerere]
