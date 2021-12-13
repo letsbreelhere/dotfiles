@@ -37,22 +37,22 @@ set undofile
 " https://stackoverflow.com/questions/44251106/tabbing-in-deoplete-is-backward
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
+let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_guide_size = 0
+let g:indent_guides_start_level = 1
 
 if !isdirectory($HOME."/tmp/vim/undo")
-    call mkdir($HOME."/tmp/vim/undo", "p")
+  call mkdir($HOME."/tmp/vim/undo", "p")
 endif
 set undodir=$HOME/tmp/vim/undo//
 
 if !isdirectory($HOME."/tmp/vim/backup")
-    call mkdir($HOME."/tmp/vim/backup", "p")
+  call mkdir($HOME."/tmp/vim/backup", "p")
 endif
 set backupdir=$HOME/tmp/vim/backup//
 
 if !isdirectory($HOME."/tmp/vim/swap")
-    call mkdir($HOME."/tmp/vim/swap", "p")
+  call mkdir($HOME."/tmp/vim/swap", "p")
 endif
 set directory=$HOME/tmp/vim/swap//
 

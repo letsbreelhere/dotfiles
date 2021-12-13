@@ -17,10 +17,10 @@ Plug 'k0kubun/vim-open-github'
 
 " Bars, panels, and files
 Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'junegunn/fzf'
 
 " Text manipulation
 Plug 'jlanzarotta/bufexplorer'

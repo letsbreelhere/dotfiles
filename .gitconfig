@@ -1,5 +1,5 @@
 [user]
-  name  = Bree Elle Gardner
+	name = letsbreelhere
   email = letsbreelhere@gmail.com
 [branch]
   autosteuprebase = always
@@ -9,6 +9,7 @@
   b       = branch
   cb      = rev-parse --abbrev-ref HEAD
   co      = checkout
+  ci      = commit -m
   comit   = commit
   commmit = commit
   cp      = cherry-pick
@@ -22,6 +23,7 @@
   s       = status
   tree    = log --graph --decorate --pretty=oneline --abbrev-commit
   wip     = !git add -A && git commit -m "WIP"
+  cleanup-merged = "!f(){ git fetch && git branch --merged | grep -v '* ' | xargs git branch --delete; };f"
 [commit]
   template = ~/.git-commit-template
 [core]
@@ -51,3 +53,8 @@
   wsErrorHighlight=new,old
 [show]
   wsErrorHighlight=old,new
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

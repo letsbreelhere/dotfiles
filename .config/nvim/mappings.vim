@@ -86,7 +86,6 @@ nmap <leader>l <plug>(easymotion-overwin-line)
 nmap <leader>fa zR<cr>
 " Toggle fold
 nmap <leader>ft za<cr>
-
 " The obvious ones
 nmap <leader>fo zo<cr>
 nmap <leader>fc zc<cr>
@@ -96,6 +95,8 @@ nmap <leader>fc zc<cr>
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
 
 nmap <silent> <backspace> :set hlsearch!<cr>
+
+nmap <C-P> :FZF<CR>
 
 " K searches the project for the word under the cursor
 nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
