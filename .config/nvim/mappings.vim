@@ -83,7 +83,9 @@ nmap <leader>l <plug>(easymotion-overwin-line)
 " Fold mappings, because they make no sense by default
 
 " Open all folds
-nmap <leader>fa zR<cr>
+nmap <leader>fO zR<cr>
+" Close all folds
+nmap <leader>fC zM<cr>
 " Toggle fold
 nmap <leader>ft za<cr>
 " The obvious ones

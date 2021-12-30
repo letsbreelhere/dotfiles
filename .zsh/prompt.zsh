@@ -12,10 +12,10 @@ function custom_precmd {
 
   job_info=$(jobs | tail -r | sed -E 's/\([^)]*\)//' | sed -E 's/^\[([[:digit:]]+)\].*suspended[[:space:]]+([[:alpha:]]+).*$/\2:\1/' | tr '\n+' ' ')
   hostname=$(hostname)
-  return_status="%F{red}%(?..⚠:%? )%F{reset}"
+  return_status="%F{red}%(?..!%? )%F{reset}"
   dirname=$(print -P %~)
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='%K{reset}%F{black}┌%K{black}${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{black}
-%F{black}└⮞%F{reset}%K{reset} '
+PROMPT='%K{reset}%F{black}╭[%K{reset}${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{reset}]
+%F{black}╰⮞%F{reset}%K{reset} '

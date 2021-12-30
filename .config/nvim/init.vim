@@ -72,20 +72,19 @@ let g:neomake_haskell_ghcmod_maker = {
 
 " Colors {{{
 
-colorscheme ron
-set bg=dark
+colorscheme delek
+set bg=light
 
-hi StatusLine ctermfg=yellow ctermbg=black
+hi StatusLine ctermfg=white ctermbg=yellow
 " Use pleasant but visible search highlighting
-hi Search ctermfg=white ctermbg=75 cterm=none
+hi Search ctermfg=black ctermbg=75 cterm=none
 hi! link Visual Search
 
-" Less eye-searing ALE warnings
-hi ALEWarning ctermbg=18
+hi SignColumn ctermbg=187
 
 " Use slightly difference grayscales for indent guides
-hi IndentGuidesEven ctermbg=240
-hi IndentGuidesOdd  ctermbg=250
+hi IndentGuidesEven ctermbg=147
+hi IndentGuidesOdd  ctermbg=189
 
 " }}}
 
