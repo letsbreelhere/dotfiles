@@ -92,6 +92,13 @@ nmap <leader>ft za<cr>
 nmap <leader>fo zo<cr>
 nmap <leader>fc zc<cr>
 
+" fzf baybee
+nmap <leader>rg :Rg<cr>
+nmap <leader>fl :Lines<cr>
+
+" Close all buffers but this one
+nmap <leader>bc :%bd\|e#<cr>
+
 " }}}
 
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
@@ -101,7 +108,7 @@ nmap <silent> <backspace> :set hlsearch!<cr>
 nmap <C-P> :FZF<CR>
 
 " K searches the project for the word under the cursor
-nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
+nnoremap K :Rg \b<C-R><C-W>\b<CR>
 
 " In visual mode, K searches the project for the selected text
-vnoremap K "vy:Ack! "<C-R>""<CR>
+vnoremap K "vy:Rg <C-R><CR>

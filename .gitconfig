@@ -24,6 +24,7 @@
   tree    = log --graph --decorate --pretty=oneline --abbrev-commit
   wip     = !git add -A && git commit -m "WIP"
   cleanup-merged = "!f(){ git fetch && git branch --merged | grep -v '* ' | xargs git branch --delete; };f"
+  gimme   = !git pull -r origin `git cb`
 [commit]
   template = ~/.git-commit-template
 [core]
@@ -58,3 +59,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[init]
+	defaultBranch = 'master'

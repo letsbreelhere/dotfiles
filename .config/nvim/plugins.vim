@@ -20,7 +20,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug '/usr/local/bin/fzf'
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Text manipulation
 Plug 'jlanzarotta/bufexplorer'
