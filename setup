@@ -17,7 +17,7 @@ OptionParser.new do |opts|
 end.parse!
 
 IGNORED_DIRS = %w{.git/ .git}
-IGNORED_FILES = %w{setup}
+IGNORED_FILES = %w{setup Brewfile}
 
 Dir.glob("**/*", File::FNM_DOTMATCH) do |file|
   next if File.directory?(file) || file.start_with?(*IGNORED_DIRS) || IGNORED_FILES.include?(file)
@@ -34,3 +34,8 @@ Dir.glob("**/*", File::FNM_DOTMATCH) do |file|
     %x(mkdir -p #{new_dir} && ln -nfs #{full_path} #{new_dir})
   end
 end
+
+puts <<~STR
+Remaining setup:
+* `brew bundle` in this directory to install homebrew packages
+STR
