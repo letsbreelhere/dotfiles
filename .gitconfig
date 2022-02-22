@@ -30,6 +30,7 @@
 [core]
   editor = nvim
   excludesfile = ~/.gitignore
+	autocrlf = false
 [color]
   branch      = true
   diff        = true

@@ -96,8 +96,14 @@ nmap <leader>fc zc<cr>
 nmap <leader>rg :Rg<cr>
 nmap <leader>fl :Lines<cr>
 
+" Repeat last command-line instruction
+nmap <leader>r @:
+
 " Close all buffers but this one
 nmap <leader>bc :%bd\|e#<cr>
+
+" Swap previous buffer
+nmap <leader>bb 
 
 " }}}
 
@@ -108,7 +114,7 @@ nmap <silent> <backspace> :set hlsearch!<cr>
 nmap <C-P> :FZF<CR>
 
 " K searches the project for the word under the cursor
-nnoremap K :Rg \b<C-R><C-W>\b<CR>
+nnoremap K :execute 'Rg \b'.expand("<cword>").'\b'<cr>
 
 " In visual mode, K searches the project for the selected text
-vnoremap K "vy:Rg <C-R><CR>
+vnoremap K "vy:Rg "<C-R>""<CR>
