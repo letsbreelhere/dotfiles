@@ -9,7 +9,7 @@
   b       = branch
   cb      = rev-parse --abbrev-ref HEAD
   co      = checkout
-  ci      = commit -m
+  ci      = commit
   comit   = commit
   commmit = commit
   cp      = cherry-pick

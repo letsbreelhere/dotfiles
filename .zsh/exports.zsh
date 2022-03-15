@@ -18,3 +18,6 @@ export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PWD/.local/bin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+export FZF_DEFAULT_COMMAND="rg --files"
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND

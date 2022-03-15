@@ -38,21 +38,19 @@ nnoremap Q <nop>
 nmap <leader><space> <Plug>(easymotion-prefix)
 
 " <leader> + pastebuffer-affecting commands use the system clipboard.
-nmap <leader>y "+y
-nmap <leader>Y "+y$
-nmap <leader>d "+d
 nmap <leader>D "+d$
-nmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>y "+y
-vmap <leader>Y "+y$
-vmap <leader>d "+d
 vmap <leader>D "+d$
-vmap <leader>p "+p
+nmap <leader>P "+P
 vmap <leader>P "+P
+nmap <leader>Y "+y$
+vmap <leader>Y "+y$
+nmap <leader>d "+d
+vmap <leader>d "+d
+nmap <leader>p "+p
+vmap <leader>p "+p
+nmap <leader>y "+y
+vmap <leader>y "+y
 
-"nmap gj J
-"nnoremap J 3j
 nmap <leader>j ddp
 nmap <leader>k ddkP
 
@@ -93,8 +91,10 @@ nmap <leader>fo zo<cr>
 nmap <leader>fc zc<cr>
 
 " fzf baybee
-nmap <leader>rg :Rg<cr>
+nmap <leader>fr :Rg<cr>
 nmap <leader>fl :Lines<cr>
+nmap <leader>fb :Buffers<cr>
+nmap <C-P> :Files<CR>
 
 " Repeat last command-line instruction
 nmap <leader>r @:
@@ -110,8 +110,6 @@ nmap <leader>bb 
 imap <c-p> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
 
 nmap <silent> <backspace> :set hlsearch!<cr>
-
-nmap <C-P> :FZF<CR>
 
 " K searches the project for the word under the cursor
 nnoremap K :execute 'Rg \b'.expand("<cword>").'\b'<cr>

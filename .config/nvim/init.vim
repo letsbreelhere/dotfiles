@@ -35,7 +35,7 @@ endfunction
 command -nargs=+ Far call Far(<f-args>)
 
 " Redefine Rg - ignore filename in results
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0) 
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 " Run prettier on save
 "let g:prettier#autoformat = 0
@@ -74,13 +74,8 @@ let g:neomake_haskell_ghcmod_maker = {
 
 " Colors {{{
 
-colorscheme delek
 set bg=light
-
-hi StatusLine ctermfg=white ctermbg=yellow
-" Use pleasant but visible search highlighting
-hi Search ctermfg=black ctermbg=75 cterm=none
-hi! link Visual Search
+colorscheme peachpuff
 
 hi SignColumn ctermbg=187
 
