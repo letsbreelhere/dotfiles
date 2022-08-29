@@ -20,8 +20,6 @@ if (executable('rg') || executable('ag'))
   let g:ctrlp_use_caching = 0
 endif
 
-map <C-o> :CtrlPMixed<cr>
-
 " Immensely janky find and replace.
 " Here mostly so I remember I can do `cfdo`.
 function Far(from, to)
@@ -35,7 +33,7 @@ endfunction
 command -nargs=+ Far call Far(<f-args>)
 
 " Redefine Rg - ignore filename in results
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+" command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 " Run prettier on save
 "let g:prettier#autoformat = 0
@@ -94,12 +92,10 @@ augroup END
 
 augroup ruby
   au!
-  "autocmd BufWritePre * ALEFix
 augroup END
 
 augroup javascript
   au!
-  "autocmd BufWritePre * ALEFix
 augroup END
 
 augroup haskell
