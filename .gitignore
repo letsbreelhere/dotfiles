@@ -1,5 +1,6 @@
 .envrc
 node_modules/
+.config/nvim/colors
 .ignore
 .prettierrc
 .prettierrc.*
