@@ -11,9 +11,6 @@ return function(use)
   -- Repeat those surrounds properly with .
   use 'tpope/vim-repeat'
 
-  -- Since rubocop doesn't always play nice with solargraph
-  use 'dense-analysis/ale'
-
   -- Navigation
   use 'ggandor/leap.nvim'
 
