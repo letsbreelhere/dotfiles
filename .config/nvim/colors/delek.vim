@@ -1,1 +1,0 @@
-/Users/bgardner/dev/dotfiles/.config/nvim/colors/delek.vim

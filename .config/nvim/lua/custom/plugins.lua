@@ -31,4 +31,10 @@ return function(use)
       "MunifTanjim/nui.nvim",
     }
   }
+
+  use 'nvim-lua/completion-nvim'
+
+  use 'neovimhaskell/haskell-vim'
+
+  use 'windwp/nvim-autopairs'
 end

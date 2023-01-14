@@ -147,12 +147,11 @@ require('lualine').setup {
       },
     },
     lualine_c = {},
-    lualine_x = { { function() return ' 0x%B' end, color = { bg = colors.inactivegray, fg = colors.white } } },
-    lualine_y = { search_result, { 'filetype', color = { bg = colors.gray, fg = colors.white } } },
+    lualine_x = { { 'filetype', color = { bg = colors.inactivegray, fg = colors.white } } },
+    lualine_y = { { function() return ' 0x%B' end } },
     lualine_z = { '%l:%c', '%p%%/%L' },
   },
   inactive_sections = {
-    lualine_c = { '%f %y %m' },
-    lualine_x = {},
+    lualine_a = { {'%f %m', color = mod_color } },
   },
 }
