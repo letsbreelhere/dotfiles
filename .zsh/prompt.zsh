@@ -17,5 +17,5 @@ function custom_precmd {
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='%F{237}┌%K{237}%F{white}STAR-PUPPY ${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{237}
+PROMPT='%F{237}┌[STAR-PUPPY ${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{237}]
 %F{237}└⮞%F{reset}%K{reset} '
