@@ -10,12 +10,12 @@ function custom_precmd {
     vcs_status_string=" %F{red}$unadded_files %F{green}$added_files%F{cyan}"
   fi
 
-  job_info=$(jobs | sed -E 's/\([^)]*\)//' | sed -E 's/^\[([[:digit:]]+)\].*suspended[[:space:]]+([[:alpha:]]+).*$/\2:\1/' | tr '\n+' ' ')
+  job_info=$(jobs | tail -r | sed -E 's/\([^)]*\)//' | sed -E 's/^\[([[:digit:]]+)\].*suspended[[:space:]]+([[:alpha:]]+).*$/\2:\1/' | tr '\n+' ' ')
   hostname=$(hostname)
-  return_status="%F{196}%(?..⚠:%? )%F{reset}"
+  return_status="%F{red}%(?..!%? )%F{reset}"
   dirname=$(print -P %~)
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='%F{237}┌[STAR-PUPPY ${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{237}]
-%F{237}└⮞%F{reset}%K{reset} '
+PROMPT='%K{reset}%F{white}╭[%K{reset}${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{white}]
+%F{white}╰▸%F{reset}%K{reset} '
