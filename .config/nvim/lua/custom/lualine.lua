@@ -12,8 +12,8 @@ local colors = {
 
 local theme = {
   normal = {
-    a = { bg = colors.inactivegray, fg = colors.white, gui = 'bold' },
-    b = { bg = colors.gray, fg = colors.darkgray },
+    a = { bg = colors.gray, fg = colors.darkgray, gui = 'bold' },
+    b = { bg = colors.inactivegray, fg = colors.darkgray },
     c = { bg = colors.lightgray, fg = colors.darkgray },
   },
   insert = {
@@ -61,7 +61,7 @@ local function process_sections(sections)
         comp = { comp }
         section[id] = comp
       end
-      comp.separator = left and { right = '' } or { left = '' }
+      comp.separator = left and { right = ' ' } or { left = ' ' }
     end
   end
   return sections
@@ -89,7 +89,7 @@ local function modified()
   else
     ch = ''
   end
-  return (vim.fn.expand('%h') .. ch)
+  return (vim.fn.expand('%') .. ch)
 end
 
 local function mod_color()
@@ -100,7 +100,7 @@ local function mod_color()
   elseif vim.bo.modifiable == false or vim.bo.readonly == true then
     c = { bg = colors.orange, fg = colors.white }
   else
-    c = {}
+    c = { bg = colors.gray, fg = colors.darkgray }
   end
   return c
 end
@@ -108,12 +108,13 @@ end
 require('lualine').setup {
   options = {
     theme = theme,
+    section_separators = { left = '', right = '' },
   },
   sections = process_sections {
     lualine_a = { 'mode' },
     lualine_b = {
-      'branch',
-      'diff',
+      { 'branch', color = { bg = colors.inactivegray, fg = colors.white } },
+      { 'diff', color = { bg = colors.gray } },
       {
         'diagnostics',
         source = { 'nvim' },
@@ -127,6 +128,7 @@ require('lualine').setup {
         diagnostics_color = { warn = { bg = colors.inactivegray, fg = colors.white } },
       },
       { modified, color = mod_color },
+      { 'filetype', icon_only = true, color = mod_color },
       {
         '%w',
         cond = function()
@@ -147,7 +149,7 @@ require('lualine').setup {
       },
     },
     lualine_c = {},
-    lualine_x = { { 'filetype', color = { bg = colors.inactivegray, fg = colors.white } } },
+    lualine_x = {},
     lualine_y = { { function() return ' 0x%B' end } },
     lualine_z = { '%l:%c', '%p%%/%L' },
   },

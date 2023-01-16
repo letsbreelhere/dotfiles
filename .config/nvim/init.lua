@@ -97,9 +97,9 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('custom.lualine')
-
 require('custom.keymaps')
 require('custom.vim_options')
+require('custom.dashboard')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -162,11 +162,6 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
-
--- Make sure we follow symlinks in telescope
-local find_files = function ()
-  require('telescope.builtin').find_files({ follow = true })
-end
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`

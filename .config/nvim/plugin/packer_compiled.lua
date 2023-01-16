@@ -99,6 +99,11 @@ _G.packer_plugins = {
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/completion-nvim",
     url = "https://github.com/nvim-lua/completion-nvim"
   },
+  ["dashboard-nvim"] = {
+    loaded = true,
+    path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
+    url = "https://github.com/glepnir/dashboard-nvim"
+  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/fidget.nvim",
@@ -159,6 +164,12 @@ _G.packer_plugins = {
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/nui.nvim",
     url = "https://github.com/MunifTanjim/nui.nvim"
   },
+  ["nvim-autopairs"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0" },
+    loaded = true,
+    path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -211,6 +222,11 @@ _G.packer_plugins = {
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["rose-pine"] = {
+    loaded = true,
+    path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/rose-pine",
+    url = "https://github.com/rose-pine/neovim"
+  },
   ["telescope-fzf-native.nvim"] = {
     cond = { true },
     loaded = false,
@@ -228,6 +244,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/tslime.vim",
     url = "https://github.com/jgdavey/tslime.vim"
+  },
+  ["utf8.nvim"] = {
+    loaded = true,
+    path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/utf8.nvim",
+    url = "https://github.com/uga-rosa/utf8.nvim"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -262,6 +283,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
+time([[Config for nvim-autopairs]], false)
 -- Conditional loads
 time([[Conditional loading of telescope-fzf-native.nvim]], true)
   require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)

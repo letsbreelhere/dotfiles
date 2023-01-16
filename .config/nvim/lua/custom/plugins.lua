@@ -1,6 +1,7 @@
 return function(use)
   -- Pretty colors
   use 'ellisonleao/gruvbox.nvim'
+  use({ 'rose-pine/neovim', as = 'rose-pine' })
 
   -- Allow pane movement to jump out of vim into tmux
   use 'jgdavey/tslime.vim'
@@ -36,5 +37,13 @@ return function(use)
 
   use 'neovimhaskell/haskell-vim'
 
-  use 'windwp/nvim-autopairs'
+  use {
+    'windwp/nvim-autopairs',
+    config = function() require("nvim-autopairs").setup {} end
+  }
+
+  use { 'glepnir/dashboard-nvim' }
+
+  -- Missing utf8 lua module
+  use { 'uga-rosa/utf8.nvim' }
 end

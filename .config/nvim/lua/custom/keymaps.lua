@@ -67,25 +67,25 @@ vim.keymap.set('v', '<leader>y', '"+y')
 -- Toggle search highlighting
 vim.keymap.set('n', '<backspace>', function() vim.o.hlsearch = not vim.o.hlsearch end, { silent = true })
 
-vim.keymap.set('n', '<leader>f', ':Neotree toggle<cr>', { silent = true })
+vim.keymap.set('n', '<leader>n', ':Neotree toggle<cr>', { silent = true, desc = "[N]eotree toggle"})
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 vim.keymap.set('i', '<expr> <Tab>',   'pumvisible() ? "<C-n>" : "<Tab>"')
 vim.keymap.set('i', '<expr> <S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"')
 
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ctions' })
 
 
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`
 
--- Make sure we follow symlinks in telescope
 local find_files = function ()
   require('telescope.builtin').find_files({ follow = true, hidden = true })
 end
 
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', find_files, { desc = '[ ] Find existing buffers' })
+-- Make sure we follow symlinks in telescope
+vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[F]ind [r]ecently opened files' })
+vim.keymap.set('n', '<leader><space>', find_files, { desc = '[F]ind [f]ile in project' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -93,13 +93,12 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>h', require('telescope.builtin').help_tags, { desc = 'Search [H]elp' })
-
-vim.keymap.set('v', '<leader>s', function()
-  require('telescope.builtin').live_grep({ default_text = vim.getVisualSelection(), desc = '[S]earch visual selection' })
+vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
+vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
+vim.keymap.set('v', '<leader>f', function()
+  require('telescope.builtin').live_grep({ default_text = vim.getVisualSelection(), desc = '[F]ind visual selection' })
 end)
 
 vim.keymap.set('v', '<leader>/', function()
