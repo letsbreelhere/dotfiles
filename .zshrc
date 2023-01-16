@@ -9,6 +9,7 @@ source ~/.zsh/completion.zsh
 source ~/.zsh/vcs.zsh
 source ~/.zsh/prompt.zsh
 source ~/.zsh/aliases.zsh
+source ~/.zsh/secrets.zsh
 
 bindkey -v
 bindkey '^R' history-incremental-search-backward
@@ -27,3 +28,12 @@ function chpwd() {
     source $PWD/.zsh_config
   fi
 }
+
+source ~/.zsh/exports.zsh
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/kubernetes-cli@1.22/bin:$PATH"
+
+[ -f "/Users/bgardner/.ghcup/env" ] && source "/Users/bgardner/.ghcup/env" # ghcup-env
+export PATH="/usr/local/opt/ruby/bin:$PATH"
