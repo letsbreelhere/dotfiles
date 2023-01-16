@@ -46,3 +46,8 @@ vim.o.completeopt = 'menuone,noselect'
 
 vim.o.list = true
 vim.o.listchars = 'tab:⇥⇥,extends:⇉,precedes:⇇,trail:·,nbsp:·'
+
+-- set termguicolors to enable highlight groups
+vim.o.termguicolors = true
+
+vim.o.foldmethod = 'marker'
