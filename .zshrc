@@ -30,7 +30,6 @@ function chpwd() {
 }
 
 source ~/.zsh/exports.zsh
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/kubernetes-cli@1.22/bin:$PATH"

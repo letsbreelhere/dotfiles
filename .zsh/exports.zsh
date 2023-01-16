@@ -6,7 +6,7 @@ export EDITOR=nvim
 # Paths
 export PATH="$HOME/.local/bin:$PATH"
 # Add npm bins to path if they're available
-if [[ ! `type npm > /dev/null` ]]; then;
+if [[ `type npm > /dev/null` ]]; then;
   export PATH="$(npm bin -g 2>/dev/null):$PATH"
   export PATH="$(npm bin):$PATH"
 fi
