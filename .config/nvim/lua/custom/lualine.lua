@@ -37,13 +37,23 @@ local function filestatus()
   local ch
 
   if vim.bo.modified then
-    ch = ' +'
+    ch = ' [+]'
   elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-    ch = ' X'
+    ch = ' [X]'
   else
     ch = ''
   end
   return (vim.fn.expand('%') .. ch)
+end
+
+local function filecolor()
+  if vim.bo.modified then
+    return { bg = '#009900' }
+  elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+    return { bg = '#990000' }
+  else
+    return { }
+  end
 end
 
 require('lualine').setup {
@@ -81,7 +91,7 @@ require('lualine').setup {
       { 'filetype' },
     },
     lualine_c = {
-      { filestatus },
+      { filestatus, color = filecolor},
     },
     lualine_x = {{ search_result },},
     lualine_y = { { function() return ' 0x%B' end } },

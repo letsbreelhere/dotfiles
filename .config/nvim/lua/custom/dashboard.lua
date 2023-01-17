@@ -34,7 +34,7 @@ local function pad_sections(sections)
 end
 
 db.custom_center = pad_sections {
-  { shortcut = '', desc = 'Open scratchpad', icon = ' ', action = 'e ~/.scratch.txt' },
+  { shortcut = '', desc = 'Open scratchpad', icon = '  ', action = 'e ~/.scratch.txt' },
   { shortcut = 'SPC f g', desc = 'Live grep', icon = '  ', action = 'Telescope live_grep' },
   { shortcut = 'SPC f r', desc = 'Recent files', icon = '  ', action = 'Telescope oldfiles' },
   { shortcut = 'SPC n', desc = 'Show neotree', icon = '  ', action = 'Neotree toggle' },
