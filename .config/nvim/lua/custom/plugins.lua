@@ -41,7 +41,9 @@ return function(use)
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+
+  -- Fancier statusline
+  use 'nvim-lualine/lualine.nvim'
 
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
@@ -52,6 +54,7 @@ return function(use)
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { 'nvim-telescope/telescope-fzy-native.nvim' }
   -- }}}
 
   -- Pretty colors
@@ -97,18 +100,9 @@ return function(use)
     config = function() require("nvim-autopairs").setup {} end
   }
 
-  use { 'glepnir/dashboard-nvim' }
-
   -- Missing utf8 lua module
   use { 'uga-rosa/utf8.nvim' }
 
-  use({
-  "folke/noice.nvim",
-  requires = {
-    "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
-    }
-  })
-
+  -- Code scratchpad
   use({ 'metakirby5/codi.vim' })
 end

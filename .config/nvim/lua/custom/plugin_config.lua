@@ -1,6 +1,12 @@
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -20,6 +26,8 @@ cmp.setup {
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
@@ -49,7 +57,7 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
@@ -78,7 +86,7 @@ mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
-      on_attach = on_attach,
+      on_attach = require('custom.on_attach'),
       settings = servers[server_name],
     }
   end,
@@ -86,22 +94,6 @@ mason_lspconfig.setup_handlers {
 
 -- Turn on lsp status information
 require('fidget').setup({ text = { spinner = 'moon' } })
-
-require('noice').setup({
-  presets = {
-    bottom_search = true,
-  },
-  cmdline = {
-    format = {
-      cmdline = { icon = ">" },
-      search_down = { icon = "/" },
-      search_up = { icon = "?" },
-      filter = { icon = "$" },
-      lua = { icon = "☾" },
-      help = { icon = "?" },
-    },
-  },
-})
 
 -- Enable Comment.nvim
 require('Comment').setup()
@@ -196,30 +188,19 @@ require('leap').add_default_mappings()
 
 require('window-picker').setup()
 
-  require("noice").setup({
-    cmdline = {
-      format = {
-        cmdline = { icon = ">" },
-        search_down = { icon = "/" },
-        search_up = { icon = "?" },
-        filter = { icon = "$" },
-        lua = { icon = "☾" },
-        help = { icon = "?" },
-      },
-    },
-  })
-
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
+  pickers = {
+    live_grep = {
+      only_sort_text = true
+    }
+  },
   defaults = {
+    layout_config= { width=0.90 },
     vimgrep_arguments = {
       'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
+      '--vimgrep',
       '--smart-case',
       '--hidden'
     },

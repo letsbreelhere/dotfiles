@@ -45,9 +45,15 @@ vim.cmd [[colorscheme rose-pine]]
 vim.o.completeopt = 'menuone,noselect'
 
 vim.o.list = true
-vim.o.listchars = 'tab:⇥⇥,extends:⇉,precedes:⇇,trail:·,nbsp:·'
+vim.o.listchars = 'tab:⇥⇥,extends:…,precedes:…,trail:·,nbsp:·'
 
 -- set termguicolors to enable highlight groups
 vim.o.termguicolors = true
 
 vim.o.foldmethod = 'marker'
+
+vim.g.scratchpad_autostart = false
+
+vim.o.scrolloff = 10
+vim.o.sidescroll = 0
+vim.o.sidescrolloff = 999

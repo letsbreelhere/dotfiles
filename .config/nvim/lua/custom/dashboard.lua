@@ -1,42 +1,35 @@
-local db = require('dashboard')
+DB = require('dashboard')
+U = require('custom.util')
 
 local logo_path = os.getenv('HOME') .. '/.config/nvim/static/logo.txt'
-db.preview_command = 'cat | lolcat -p 0.5 -t'
-db.preview_file_path = logo_path
+DB.preview_command = 'cat'
+DB.preview_file_path = logo_path
 
-local function file_exists(file)
-  local f = io.open(file, "rb")
-  if f then f:close() end
-  return f ~= nil
-end
-
-local function lines_from(file)
-  if not file_exists(file) then return {} end
-  local lines = {}
-  for line in io.lines(file) do
-    lines[#lines + 1] = line
-  end
-  return lines
-end
-
-local logo = lines_from(logo_path)
+local logo = U.lines_from(logo_path)
 local rowlen = require('utf8').len(logo[1])
-db.preview_file_width = rowlen
-db.preview_file_height = #logo
+DB.preview_file_width = rowlen
+DB.preview_file_height = #logo
 
-local function pad_sections(sections)
+-- local tips_path = os.getenv('HOME') .. '/.config/nvim/static/vimtips.txt'
+-- local tips_lines = U.lines_from(tips_path)
+-- math.randomseed(os.time())
+-- local tip = tips_lines[math.random(#tips_lines)]
+--
+-- DB.custom_header = { tip }
+
+local function pad_sections(max_size, sections)
   for _, section in pairs(sections) do
     local used = require('utf8').len(section.shortcut .. section.desc)
-    local spaces = string.rep(' ', rowlen - used)
+    local spaces = string.rep(' ', max_size - used)
     section.desc = section.desc .. spaces
   end
   return sections
 end
 
-db.custom_center = pad_sections {
+DB.custom_center = pad_sections (80, {
   { shortcut = 'SPC s p', desc = 'Open scratchpad', icon = ' ', action = 'CodiNew ruby' },
   { shortcut = 'SPC f g', desc = 'Live grep', icon = ' ', action = 'Telescope live_grep' },
   { shortcut = 'SPC f r', desc = 'Recent files', icon = ' ', action = 'Telescope oldfiles' },
   { shortcut = 'SPC n', desc = 'Show neotree', icon = ' ', action = 'Neotree toggle' },
   { shortcut = 'SPC SPC', desc = 'Find file', icon = ' ' },
-}
+})

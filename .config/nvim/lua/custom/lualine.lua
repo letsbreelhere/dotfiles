@@ -7,6 +7,14 @@ function empty:draw(default_highlight)
   return self.status
 end
 
+local sbar = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
+local function scroll_bar()
+  local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+  local lines = vim.api.nvim_buf_line_count(0)
+  local i = math.floor((curr_line - 1) / lines * #sbar) + 1
+  return string.rep(sbar[i], 2)
+end
+
 -- Put proper separators and gaps between components in sections
 local function process_sections(sections)
   for name, section in pairs(sections) do
@@ -16,7 +24,7 @@ local function process_sections(sections)
         comp = { comp }
         section[id] = comp
       end
-      comp.separator = left and { right = ' ' } or { left = ' ' }
+      comp.separator = { right='', left='' }
     end
   end
   return sections
@@ -26,7 +34,7 @@ local function search_result()
   local searchcount = vim.fn.searchcount { maxcount = 9999 }
   local last_search = vim.fn.getreg('/')
 
-  if searchcount.total == 0 or not last_search or last_search == '' then
+  if not vim.o.hlsearch or searchcount.total == 0 or not last_search or last_search == '' then
     return ''
   end
 
@@ -48,21 +56,19 @@ end
 
 local function filecolor()
   if vim.bo.modified then
-    return { bg = '#009900' }
+    return { bg = '#225533' }
   elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-    return { bg = '#990000' }
+    return { bg = '#771122' }
   else
-    return { }
   end
 end
 
 require('lualine').setup {
   options = {
     theme = 'auto',
-    section_separators = { left = '🮥', right = '🮤' },
   },
   sections = process_sections {
-    lualine_a = { 'mode' },
+    lualine_a = { { scroll_bar }, 'mode' },
     lualine_b = {
       { 'branch' },
       { 'diff' },
@@ -94,7 +100,7 @@ require('lualine').setup {
       { filestatus, color = filecolor},
     },
     lualine_x = {{ search_result },},
-    lualine_y = { { function() return ' 0x%B' end } },
+    lualine_y = { { function() return '0x%B' end } },
     lualine_z = { '%l:%c', '%p%%/%L' },
   },
   inactive_sections = {

@@ -52,7 +52,6 @@ vim.api.nvim_create_autocmd({"BufWritePost"}, {
 require('custom.lualine')
 require('custom.keymaps')
 require('custom.vim_options')
-require('custom.dashboard')
 require('custom.plugin_config')
 
 -- [[ Highlight on yank ]]
