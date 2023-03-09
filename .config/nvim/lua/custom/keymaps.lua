@@ -38,6 +38,10 @@ vim.keymap.set('', '<leader>=', '<C-w>=')
 -- Make * useful in visual mode
 vim.keymap.set('v', '*', 'y/<c-r>"<cr>', { silent = true })
 
+-- Keep visual highlight after (de-)indents
+vim.keymap.set('v', '<', '<gv', { noremap = true })
+vim.keymap.set('v', '>', '>gv', { noremap = true })
+
 vim.keymap.set('n', '<leader>e', ':e <C-R>=expand("%:p:h") . \'/\'<CR>')
 
 -- Open window splits in various places
