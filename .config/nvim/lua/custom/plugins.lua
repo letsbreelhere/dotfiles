@@ -66,6 +66,7 @@ return function(use)
 
   -- Pretty colors
   use 'ellisonleao/gruvbox.nvim'
+
   use({ 'rose-pine/neovim', as = 'rose-pine' })
 
   -- Allow pane movement to jump out of vim into tmux
