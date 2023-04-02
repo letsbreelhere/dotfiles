@@ -1,6 +1,7 @@
 .envrc
 node_modules/
 .config/nvim/colors
+.config/nvim/plugin/packer_compiled.lua
 .ignore
 .prettierrc
 .prettierrc.*
