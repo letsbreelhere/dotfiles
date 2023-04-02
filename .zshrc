@@ -13,7 +13,11 @@ source ~/.zsh/prompt.zsh
 source ~/.zsh/aliases.zsh
 source ~/.zsh/secrets.zsh
 
+# vim keybindings
 bindkey -v
+# stop ctrl-s from locking input
+stty -ixon
+
 bindkey '^R' history-incremental-search-backward
 
 # Don't know why this doesn't happen by default.
@@ -51,3 +55,7 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 if [ -r /usr/local/share/chruby/chruby.sh ]; then
   source /usr/local/share/chruby/chruby.sh
 fi
+
+# chruby
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh

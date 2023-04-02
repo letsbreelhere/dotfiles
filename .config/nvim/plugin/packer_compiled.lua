@@ -119,6 +119,11 @@ _G.packer_plugins = {
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/completion-nvim",
     url = "https://github.com/nvim-lua/completion-nvim"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/home/bree/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/Users/bgardner/.local/share/nvim/site/pack/packer/start/fidget.nvim",
