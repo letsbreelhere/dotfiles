@@ -31,6 +31,7 @@ vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = '[D]iagnost
 vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = '[D]iagnostic [N]ext' })
 vim.keymap.set('n', '<leader>de', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, { desc = '[D]iagnostic next [E]rror' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[D]iagnostic [Q]uickfix' })
+vim.keymap.set('n', '<leader>da', vim.lsp.buf.code_action, { desc = '[D]iagnostic [A]ction' })
 
 -- Equalize panes
 vim.keymap.set('', '<leader>=', '<C-w>=')
@@ -114,3 +115,6 @@ vim.keymap.set('v', '<leader>/', function()
   })
 end, { desc = 'Search visual selection in buffer' })
 -- }}}
+
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })

@@ -113,4 +113,6 @@ return function(use)
 
   -- Code scratchpad
   use({ 'metakirby5/codi.vim' })
+
+  use 'github/copilot.vim'
 end
