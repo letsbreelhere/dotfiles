@@ -9,3 +9,4 @@ node_modules/
 .haml-lint.yml
 .solargraph.yml
 coverage/
+tags

@@ -77,6 +77,7 @@ vim.keymap.set('n', '<leader>n', ':Neotree toggle<cr>', { silent = true, desc = 
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 vim.keymap.set('i', '<expr> <Tab>',   'pumvisible() ? "<C-n>" : "<Tab>"')
+
 vim.keymap.set('i', '<expr> <S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"')
 
 vim.keymap.set('n', '<leader>sp', ':CodiNew ruby<cr>', { desc = 'New [S]cratch[p]ad' })
@@ -114,7 +115,6 @@ vim.keymap.set('v', '<leader>/', function()
     default_text = vim.getVisualSelection(),
   })
 end, { desc = 'Search visual selection in buffer' })
--- }}}
 
-vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("")', { silent = true, expr = true })
+-- }}}

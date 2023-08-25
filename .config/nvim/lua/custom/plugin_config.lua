@@ -156,7 +156,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'haskell' },
 
   highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
+  indent = { enable = true, disable = { 'python', 'ruby' } },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -242,3 +242,11 @@ require('telescope').setup {
   },
 }
 require('telescope').load_extension('fzf')
+
+vim.cmd([[command! -nargs=0 Gbrowse GBrowse]])
+vim.cmd([[command! -nargs=0 Gblame Git blame]])
+
+-- imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
+vim.g.copilot_no_tab_map = 'v:true'
+
+vim.g.copilot_filetypes = { yaml = 'v:true' }

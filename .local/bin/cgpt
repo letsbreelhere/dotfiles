@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+
+import requests
+import sys
+import os
+import optparse
+
+
+class OpenAIClient:
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+    def request(self, path, method, data=None):
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+
+        url = f"https://api.openai.com/v1/{path}"
+
+        response = requests.request(
+            method=method,
+            url=url,
+            headers=headers,
+            json=data
+        )
+        return response.json()
+
+
+client = OpenAIClient(os.environ['OPENAI_API_KEY'])
+
+
+def chat(
+        prompt=None,
+        model=None,
+        system_prompt=None,
+        temperature=None,
+        max_tokens=None
+):
+    model = "gpt-4" if model is None else model
+    system_prompt = "" if system_prompt is None else system_prompt
+
+    data = {
+        "model": model,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    }
+
+    if temperature is not None:
+        data['temperature'] = temperature
+
+    if max_tokens is not None:
+        data['max_tokens'] = max_tokens
+
+    response = client.request("chat/completions", "POST", data=data)
+
+    if 'choices' in response and len(response['choices']) > 0:
+        return response['choices'][0]['message']['content'].strip()
+    else:
+        return f"Error: Unable to get a response from the model.\n{response}"
+
+
+def get_models():
+    response = client.request("models", "GET")
+    if response['data'] is not None:
+        return "Available models:\n" + "\n".join(
+            sorted(
+                [model['id'] for model in response['data']]
+            )
+        )
+    else:
+        return f"Error: Unable to get models.\n{response}"
+
+if __name__ == "__main__":
+    parser = optparse.OptionParser()
+    parser.add_option(
+        '-t', '--temperature',
+        action="store",
+        dest="temperature",
+        help="temperature",
+        type="float"
+    )
+    parser.add_option(
+        '-m', '--max_tokens',
+        action="store",
+        dest="max_tokens",
+        help="max_tokens",
+        type="int"
+    )
+    parser.add_option(
+        '-s', '--system_prompt',
+        action="store",
+        dest="system_prompt",
+        help="system_prompt"
+    )
+    parser.add_option(
+        '-o', '--model',
+        action="store",
+        dest="model",
+        help="model"
+    )
+    parser.add_option(
+        '-l', '--list-models',
+        action="store_true",
+        dest="list_models",
+        help="list models"
+    )
+    options, args = parser.parse_args()
+
+    if options.list_models:
+        print(get_models())
+        sys.exit(0)
+
+    if len(args) < 1:
+        prompt = sys.stdin.read()
+    else:
+        prompt = args[0]
+
+    response = chat(
+        prompt=prompt,
+        model=options.model,
+        temperature=options.temperature,
+        max_tokens=options.max_tokens,
+        system_prompt=options.system_prompt
+    )
+    print(response)
