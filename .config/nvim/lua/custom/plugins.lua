@@ -115,4 +115,6 @@ return function(use)
   use({ 'metakirby5/codi.vim' })
 
   use 'github/copilot.vim'
+
+  use '/home/bree/dev/blue-sentinel-nvim'
 end

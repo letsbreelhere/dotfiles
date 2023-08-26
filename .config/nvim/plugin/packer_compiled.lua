@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/home/bree/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["blue-sentinel-nvim"] = {
+    loaded = true,
+    path = "/home/bree/.local/share/nvim/site/pack/packer/start/blue-sentinel-nvim",
+    url = "/home/bree/dev/blue-sentinel-nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/bree/.local/share/nvim/site/pack/packer/start/cmp-buffer",
