@@ -1,36 +1,49 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env python
 
-require 'optparse'
+import argparse
+import os
+import shutil
 
-options = {}
-OptionParser.new do |opts|
-  opts.banner = "Usage: setup [options]"
+parser = argparse.ArgumentParser(description="Setup script")
+parser.add_argument("-v", "--verbose", action="store_true", help="Run verbosely")
+parser.add_argument("-d", "--dry-run", action="store_true", help="Run but do not create symlinks (implies verbosity)")
+parser.add_argument("-f", "--force", action="store_true", help="Overwrite existing files with symlinks")
+parser.add_argument("-e", "--error", action="store_true", help="Raise error when existing files conflict with symlinks")
+args = parser.parse_args()
+verbose = args.verbose or args.dry_run
+dry_run = args.dry_run
+force = args.force
+warn = not args.error
 
-  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-    options[:verbose] = v
-  end
+IGNORED_DIRS = {".git/"}
+IGNORED_FILES = {"setup", "README.md", "pacman-pkgs.txt"}
 
-  opts.on("-d", "--dry-run", "Run but do not create symlinks (implies verbosity)") do |d|
-    options[:verbose] = d
-    options[:dry_run] = d
-  end
-end.parse!
+for root, dirs, files in os.walk(".", topdown=True):
+    for file in files:
+        full_path = os.path.abspath(os.path.join(root, file))
+        relative_path = os.path.relpath(full_path, start=os.getcwd())
 
-IGNORED_DIRS = %w{.git/}
-IGNORED_FILES = %w{setup README.md}
+        if (
+            not os.path.isdir(full_path)
+            and not any(relative_path.startswith(ignored_dir) for ignored_dir in IGNORED_DIRS)
+            and file not in IGNORED_FILES
+        ):
+            new_path = os.path.expanduser(os.path.join("~", relative_path))
+            new_dir = os.path.dirname(new_path)
 
-Dir.glob("**/*", File::FNM_DOTMATCH) do |file|
-  next if File.directory?(file) || file.start_with?(*IGNORED_DIRS) || IGNORED_FILES.include?(file)
+            if verbose:
+                print(f"{full_path} -> {new_dir}")
 
-  full_path = File.join(__dir__, file)
-  new_path = File.join(ENV['HOME'], file)
-  new_dir = File.dirname(new_path)
-
-  if options[:verbose]
-    puts "#{full_path} -> #{new_dir}"
-  end
-
-  unless options[:dry_run]
-    %x(mkdir -p #{new_dir} && ln -nfs #{full_path} #{new_dir})
-  end
-end
+            if not dry_run:
+                os.makedirs(new_dir, exist_ok=True)
+                try:
+                    os.symlink(full_path, new_path)
+                except OSError as e:
+                    if force:
+                        print(f"Overwriting {new_path}")
+                        os.remove(new_path)
+                        os.symlink(full_path, new_path)
+                    else if warn:
+                        print(f"{new_path} already exists")
+                    else:
+                        raise e

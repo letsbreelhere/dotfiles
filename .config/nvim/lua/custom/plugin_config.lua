@@ -121,9 +121,6 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- Turn on lsp status information
-require('fidget').setup({ text = { spinner = 'moon' } })
-
 -- Enable Comment.nvim
 require('Comment').setup()
 

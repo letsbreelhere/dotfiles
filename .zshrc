@@ -1,5 +1,3 @@
-zstyle ':znap:*' repos-dir ~/.config/zsh
-source ~/dev/znap/znap.zsh
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
