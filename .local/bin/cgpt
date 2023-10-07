@@ -4,31 +4,7 @@ import requests
 import sys
 import os
 import optparse
-
-
-class OpenAIClient:
-    def __init__(self, api_key):
-        self.api_key = api_key
-
-    def request(self, path, method, data=None):
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
-        }
-
-        url = f"https://api.openai.com/v1/{path}"
-
-        response = requests.request(
-            method=method,
-            url=url,
-            headers=headers,
-            json=data
-        )
-        return response.json()
-
-
-client = OpenAIClient(os.environ['OPENAI_API_KEY'])
-
+import openai
 
 def chat(
         prompt=None,
@@ -37,11 +13,12 @@ def chat(
         temperature=None,
         max_tokens=None
 ):
-    model = "gpt-4" if model is None else model
+    model = "gpt-3.5-turbo" if model is None else model
     system_prompt = "" if system_prompt is None else system_prompt
 
     data = {
         "model": model,
+        "stream": True,
         "messages": [
             {
                 "role": "system",
@@ -60,24 +37,19 @@ def chat(
     if max_tokens is not None:
         data['max_tokens'] = max_tokens
 
-    response = client.request("chat/completions", "POST", data=data)
+    response = openai.ChatCompletion.create(**data)
 
-    if 'choices' in response and len(response['choices']) > 0:
-        return response['choices'][0]['message']['content'].strip()
-    else:
-        return f"Error: Unable to get a response from the model.\n{response}"
+    for chunk in response:
+        if chunk['choices'][0]['finish_reason'] == 'stop':
+            print("\n")
+            break
+        else:
+            print(chunk['choices'][0]['delta']['content'], end='', flush=True)
 
 
 def get_models():
-    response = client.request("models", "GET")
-    if response['data'] is not None:
-        return "Available models:\n" + "\n".join(
-            sorted(
-                [model['id'] for model in response['data']]
-            )
-        )
-    else:
-        return f"Error: Unable to get models.\n{response}"
+    response = openai.Model.list()
+    return [model['id'] for model in response['data']]
 
 if __name__ == "__main__":
     parser = optparse.OptionParser()
@@ -116,7 +88,8 @@ if __name__ == "__main__":
     options, args = parser.parse_args()
 
     if options.list_models:
-        print(get_models())
+        for model in get_models():
+            print(model)
         sys.exit(0)
 
     if len(args) < 1:
@@ -124,11 +97,10 @@ if __name__ == "__main__":
     else:
         prompt = args[0]
 
-    response = chat(
+    chat(
         prompt=prompt,
         model=options.model,
         temperature=options.temperature,
         max_tokens=options.max_tokens,
         system_prompt=options.system_prompt
     )
-    print(response)
