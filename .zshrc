@@ -1,3 +1,8 @@
+[[ -r ~/dev/znap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/dev/znap
+zstyle ':znap:*' repos-dir ~/.config/zsh
+source ~/dev/znap/znap.zsh
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
@@ -15,6 +20,9 @@ source ~/.zsh/secrets.zsh
 bindkey -v
 # stop ctrl-s from locking input
 stty -ixon
+
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 bindkey '^R' history-incremental-search-backward
 

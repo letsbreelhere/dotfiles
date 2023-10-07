@@ -43,7 +43,48 @@ for root, dirs, files in os.walk(".", topdown=True):
                         print(f"Overwriting {new_path}")
                         os.remove(new_path)
                         os.symlink(full_path, new_path)
-                    else if warn:
+                    elif warn:
                         print(f"{new_path} already exists")
                     else:
                         raise e
+
+print("""
+Created symlinks
+
+Running post-symlink setup...
+""")
+# Install pacman packages
+print("Installing pacman packages")
+os.system("sudo pacman -S --needed - < pacman-pkgs.txt")
+
+# Set zsh as default shell, if not already
+if not os.environ["SHELL"].endswith("zsh"):
+    print("Setting zsh as default shell")
+    os.system("chsh -s $(which zsh)")
+
+print("Creating untracked config files")
+os.system("touch ~/.zsh/secrets.zsh")
+os.system("mkdir -p ~/.config/zsh")
+
+# Create a ssh key if one does not exist
+if not os.path.exists(os.path.expanduser("~/.ssh/id_rsa.pub")):
+    print("Creating ssh key")
+    os.system("ssh-keygen -t rsa -b 4096 -C \"\" -f ~/.ssh/id_rsa2 -N \"\"")
+
+print("Done!")
+print("""
+Next steps:
+
+* Make yourself a sudoer:
+    * sudo EDITOR=nvim visudo
+    * Add the following line to the end of the file:
+        * %sudo ALL=(ALL:ALL) ALL
+        * OR
+        * %sudo ALL=(ALL:ALL) NOPASSWD: ALL
+    * groupadd sudo
+    * usermod -aG sudo $USER
+
+* Add your ssh key to github
+      * cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
+      * Go to https://github.com/settings/keys
+""")
