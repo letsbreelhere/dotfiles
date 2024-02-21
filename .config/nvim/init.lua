@@ -14,7 +14,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup(function(use)
-  local _, plugins = pcall(require, 'custom.plugins')
+  local _, plugins = pcall(require, 'plugins')
   plugins(use)
 
   if is_bootstrap then
@@ -45,14 +45,20 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 vim.api.nvim_create_autocmd({"BufWritePost"}, {
-  pattern = {'*/nvim/lua/custom/*.lua'},
+  pattern = {'*/nvim/lua/*.lua'},
   command = 'source <afile>'
 })
 
-require('custom.lualine')
-require('custom.keymaps')
-require('custom.vim_options')
-require('custom.plugin_config')
+vim.api.nvim_create_autocmd({"BufWritePost"}, {
+  pattern = {'*/nvim/lua/plugins.lua'},
+  command = 'PackerSync'
+})
+
+require('lualine_config')
+require('keymaps')
+require('vim_options')
+require('plugin_config')
+require('colors')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -64,6 +70,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+vim.cmd([[highlight IblScope guifg=#ff0000]])
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

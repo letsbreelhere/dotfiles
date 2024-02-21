@@ -24,8 +24,6 @@ stty -ixon
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-bindkey '^R' history-incremental-search-backward
-
 # Don't know why this doesn't happen by default.
 # Fixes an issue with backspace in normal mode with vi-mode enabled.
 # cf. https://superuser.com/questions/476532/how-can-i-make-zshs-vi-mode-behave-more-like-bashs-vi-mode
@@ -52,7 +50,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/kubernetes-cli@1.22/bin:$PATH"
 
-[ -f "/Users/bgardner/.ghcup/env" ] && source "/Users/bgardner/.ghcup/env" # ghcup-env
+#[ -f "/Users/bgardner/.ghcup/env" ] && source "/Users/bgardner/.ghcup/env" # ghcup-env
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
@@ -78,4 +76,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-

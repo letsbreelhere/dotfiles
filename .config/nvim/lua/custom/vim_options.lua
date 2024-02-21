@@ -57,3 +57,12 @@ vim.g.scratchpad_autostart = false
 vim.o.scrolloff = 10
 vim.o.sidescroll = 0
 vim.o.sidescrolloff = 999
+
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+
+vim.g.blue_sentinel_username = 'bree'
+
+-- Apparently this needs to be massive to handle some fuzzy file searches 🤷
+vim.o.maxmempattern = 1000000

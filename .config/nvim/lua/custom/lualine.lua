@@ -7,18 +7,9 @@ function empty:draw(default_highlight)
   return self.status
 end
 
-local sbar = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
-local function scroll_bar()
-  local curr_line = vim.api.nvim_win_get_cursor(0)[1]
-  local lines = vim.api.nvim_buf_line_count(0)
-  local i = math.floor((curr_line - 1) / lines * #sbar) + 1
-  return string.rep(sbar[i], 2)
-end
-
 -- Put proper separators and gaps between components in sections
 local function process_sections(sections)
-  for name, section in pairs(sections) do
-    local left = name:sub(9, 10) < 'x'
+  for _, section in pairs(sections) do
     for id, comp in ipairs(section) do
       if type(comp) ~= 'table' then
         comp = { comp }
@@ -28,6 +19,26 @@ local function process_sections(sections)
     end
   end
   return sections
+end
+
+local copilot_indicator = function()
+  local client = vim.lsp.get_active_clients({ name = "copilot" })[1]
+  if client == nil then
+    return ""
+  end
+
+  if vim.tbl_isempty(client.requests) then
+    return "idle" -- default icon whilst copilot is idle
+  end
+
+  local spinners = {
+    "🤖💭",
+    "🤖  ",
+  }
+  local ms = vim.loop.hrtime() / 1000000
+  local frame = math.floor(ms / 240) % #spinners
+
+  return spinners[frame + 1]
 end
 
 local function search_result()
@@ -63,13 +74,21 @@ local function filecolor()
   end
 end
 
+local theme = require'lualine.themes.ayu_dark'
+theme.normal.b.bg = '#050108'
+theme.normal.b.fg = '#ffffff'
+theme.normal.c.bg = '#050108'
+theme.normal.c.fg = '#ffffff'
+
 require('lualine').setup {
   options = {
-    theme = 'auto',
+    refresh = { statusline = 100 },
+    theme = theme,
   },
   sections = process_sections {
-    lualine_a = { { scroll_bar }, 'mode' },
+    lualine_a = { "%p%%", 'mode' },
     lualine_b = {
+      { copilot_indicator },
       { 'branch' },
       { 'diff' },
       {
@@ -101,7 +120,7 @@ require('lualine').setup {
     },
     lualine_x = {{ search_result },},
     lualine_y = { { function() return '0x%B' end } },
-    lualine_z = { '%l:%c', '%p%%/%L' },
+    lualine_z = { '%l:%c', '%L' },
   },
   inactive_sections = {
     lualine_a = { { '' } },

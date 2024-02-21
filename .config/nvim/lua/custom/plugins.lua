@@ -51,19 +51,19 @@ return function(use)
 
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-  
+
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use { 'nvim-telescope/telescope-fzy-native.nvim' }
+  use 'psiska/telescope-hoogle.nvim'
   -- }}}
 
   -- Pretty colors
-  use 'ellisonleao/gruvbox.nvim'
-  use({ 'rose-pine/neovim', as = 'rose-pine' })
+  -- use 'ellisonleao/gruvbox.nvim'
+  use{ 'letsbreelhere/rose-pine-neovim', as = 'rose-pine' }
 
   -- Allow pane movement to jump out of vim into tmux
   use 'jgdavey/tslime.vim'
@@ -111,4 +111,9 @@ return function(use)
   use({ 'metakirby5/codi.vim' })
 
   use 'github/copilot.vim'
+
+  use 'j-hui/fidget.nvim'
+
+  use { '~/dev/blue-sentinel-nvim-rebuild' }
+  use { '~/dev/instant.nvim' }
 end

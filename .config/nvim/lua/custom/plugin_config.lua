@@ -115,7 +115,7 @@ mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
-      on_attach = require('custom.on_attach'),
+      on_attach = require('on_attach'),
       settings = servers[server_name],
     }
   end,
@@ -124,11 +124,13 @@ mason_lspconfig.setup_handlers {
 -- Enable Comment.nvim
 require('Comment').setup()
 
+vim.api.nvim_set_hl(0, "IblIndent", { fg = "#222244" })
+vim.api.nvim_set_hl(0, "IblScope", { fg = "#333377" })
+
 -- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
+require('ibl').setup {
+  whitespace = { remove_blankline_trail = true },
+  scope = { enabled = true, highlight='IblScope' },
 }
 
 -- Gitsigns
@@ -143,14 +145,11 @@ require('gitsigns').setup {
   },
 }
 
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
-
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vim', 'haskell' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'ruby', 'rust', 'typescript', 'vim', 'haskell' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python', 'ruby' } },
@@ -237,8 +236,19 @@ require('telescope').setup {
       },
     },
   },
+  extensions = {
+    hoogle = {
+      render = 'default',
+      renders = {
+        treesitter = {
+          remove_wrap = false
+        }
+      }
+    }
+  }
 }
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('hoogle')
 
 vim.cmd([[command! -nargs=0 Gbrowse GBrowse]])
 vim.cmd([[command! -nargs=0 Gblame Git blame]])
@@ -247,3 +257,18 @@ vim.cmd([[command! -nargs=0 Gblame Git blame]])
 vim.g.copilot_no_tab_map = 'v:true'
 
 vim.g.copilot_filetypes = { yaml = 'v:true' }
+
+require('rose-pine').setup({
+	highlight_groups = {
+		Normal = { bg = "base" }
+	}
+})
+
+-- Setup command to force toggle copilot
+
+function toggle_copilot()
+  vim.b.copilot_enabled = not vim.b.copilot_enabled
+  vim.cmd([[echo "Copilot is now " . (b:copilot_enabled ? "enabled" : "disabled")]])
+end
+
+vim.cmd([[command! -nargs=0 CopilotToggle lua toggle_copilot()]])
