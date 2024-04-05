@@ -84,6 +84,19 @@ vim.keymap.set('n', '<leader>sp', ':CodiNew ruby<cr>', { desc = 'New [S]cratch[p
 
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ctions' })
 
+local open_path_on_vagrant_machine = function()
+  local local_path = vim.fn.expand('%:p')
+  local academia_prefix = vim.env.HOME .. '/academia/'
+  if string.find('^' .. local_path, academia_prefix) then
+    local vagrant_path = string.gsub(local_path, academia_prefix, 'scp://dev//home/ubuntu/code/')
+    vim.cmd('e ' .. vagrant_path)
+  else
+    error('Path ' .. local_path .. ' is not in the expected directory ' .. academia_prefix .. '.')
+  end
+end
+
+vim.keymap.set('n', '<leader>ov', open_path_on_vagrant_machine, { desc = '[O]pen file in [V]agrant' })
+
 
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`
