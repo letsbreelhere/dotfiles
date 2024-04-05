@@ -101,26 +101,6 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Setup mason so it can manage external tooling
-require('mason').setup()
-
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
-
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = require('on_attach'),
-      settings = servers[server_name],
-    }
-  end,
-}
-
 -- Enable Comment.nvim
 require('Comment').setup()
 
@@ -237,18 +217,10 @@ require('telescope').setup {
     },
   },
   extensions = {
-    hoogle = {
-      render = 'default',
-      renders = {
-        treesitter = {
-          remove_wrap = false
-        }
-      }
-    }
   }
 }
 require('telescope').load_extension('fzf')
-require('telescope').load_extension('hoogle')
+-- require('telescope').load_extension('hoogle')
 
 vim.cmd([[command! -nargs=0 Gbrowse GBrowse]])
 vim.cmd([[command! -nargs=0 Gblame Git blame]])

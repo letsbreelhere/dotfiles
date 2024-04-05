@@ -6,9 +6,7 @@ return function(use)
   use { -- LSP Configuration & e 
     'neovim/nvim-lspconfig',
     requires = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      'VonHeikemen/lsp-zero.nvim',
 
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
@@ -52,12 +50,18 @@ return function(use)
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
 
-  -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
+  use   {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+      config = function()
+        require("telescope").load_extension("fzf")
+      end,
+    },
+  }
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use { 'nvim-telescope/telescope-fzy-native.nvim' }
   use 'psiska/telescope-hoogle.nvim'
   -- }}}
 
@@ -115,5 +119,4 @@ return function(use)
   use 'j-hui/fidget.nvim'
 
   use { '~/dev/blue-sentinel-nvim-rebuild' }
-  use { '~/dev/instant.nvim' }
 end

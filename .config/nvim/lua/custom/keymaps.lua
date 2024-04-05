@@ -84,6 +84,15 @@ vim.keymap.set('n', '<leader>sp', ':CodiNew ruby<cr>', { desc = 'New [S]cratch[p
 
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ctions' })
 
+local rename_with_prompt = function()
+  local name_under_cursor = vim.fn.expand('<cword>')
+  local new_name = vim.fn.input('Rename `' .. name_under_cursor .. '` to: ')
+  if new_name ~= '' then
+    vim.lsp.buf.rename(new_name)
+  end
+end
+vim.keymap.set('n', '<leader>rn', rename_with_prompt, { desc = '[R]e[n]ame' })
+
 
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`
@@ -106,7 +115,7 @@ vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>hs', require('telescope').extensions.hoogle.list, { desc = '[H]oogle [S]earch' })
+-- vim.keymap.set('n', '<leader>hs', require('telescope').extensions.hoogle.list, { desc = '[H]oogle [S]earch' })
 vim.keymap.set('v', '<leader>f', function()
   require('telescope.builtin').live_grep({ default_text = vim.getVisualSelection(), desc = '[F]ind visual selection' })
 end)

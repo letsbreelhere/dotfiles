@@ -81,8 +81,8 @@ Next steps:
         * %sudo ALL=(ALL:ALL) ALL
         * OR
         * %sudo ALL=(ALL:ALL) NOPASSWD: ALL
-    * groupadd sudo
-    * usermod -aG sudo $USER
+    * sudo groupadd sudo
+    * sudo usermod -aG sudo $USER
 
 * Add your ssh key to github
       * cat ~/.ssh/id_rsa.pub | xclip -selection clipboard

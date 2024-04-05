@@ -58,7 +58,7 @@ require('lualine_config')
 require('keymaps')
 require('vim_options')
 require('plugin_config')
-require('colors')
+require('lsp_config')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
