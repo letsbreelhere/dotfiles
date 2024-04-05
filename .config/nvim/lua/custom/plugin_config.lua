@@ -109,6 +109,7 @@ vim.api.nvim_set_hl(0, "IblScope", { fg = "#333377" })
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 require('ibl').setup {
+  indent = { char = '┆' },
   whitespace = { remove_blankline_trail = true },
   scope = { enabled = true, highlight='IblScope' },
 }
