@@ -16,7 +16,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<CR>'] = cmp.mapping.confirm {
+    ['<C-CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
@@ -111,23 +111,24 @@ mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
-      on_attach = require('custom.on_attach'),
+      on_attach = require('on_attach'),
       settings = servers[server_name],
     }
   end,
 }
 
 -- Turn on lsp status information
-require('fidget').setup({ text = { spinner = 'moon' } })
+require('fidget').setup()
 
 -- Enable Comment.nvim
 require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
+require('ibl').setup {
+  indent = { char = '┊' },
+  whitespace = { remove_blankline_trail = true },
+  scope = { enabled = true, highlight='IblScope' },
 }
 
 -- Gitsigns
@@ -149,7 +150,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'haskell' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'ruby', 'typescript', 'vim', 'vimdoc', 'haskell' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },

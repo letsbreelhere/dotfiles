@@ -83,6 +83,14 @@ vim.keymap.set('n', '<leader>sp', ':CodiNew ruby<cr>', { desc = 'New [S]cratch[p
 
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ctions' })
 
+-- Go to corresponding test file (replace app/ with spec/)
+vim.keymap.set('n', 'gt', function()
+  local path = vim.fn.expand('%:p')
+  local test_path = string.gsub(path, 'app/', 'spec/')
+  test_path = string.gsub(test_path, '.rb', '_spec.rb')
+  vim.cmd('e ' .. test_path)
+end, { desc = '[G]o to [T]est' })
+
 
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`
@@ -116,5 +124,5 @@ vim.keymap.set('v', '<leader>/', function()
 end, { desc = 'Search visual selection in buffer' })
 -- }}}
 
-vim.g.copilot_no_tab_map = true
+-- vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })

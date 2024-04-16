@@ -14,7 +14,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup(function(use)
-  local _, plugins = pcall(require, 'custom.plugins')
+  local _, plugins = pcall(require, 'plugins')
   plugins(use)
 
   if is_bootstrap then
@@ -45,14 +45,14 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 vim.api.nvim_create_autocmd({"BufWritePost"}, {
-  pattern = {'*/nvim/lua/custom/*.lua'},
+  pattern = {'*/nvim/lua/*.lua'},
   command = 'source <afile>'
 })
 
-require('custom.lualine')
-require('custom.keymaps')
-require('custom.vim_options')
-require('custom.plugin_config')
+require('lualine_config')
+require('keymaps')
+require('vim_options')
+require('plugin_config')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
