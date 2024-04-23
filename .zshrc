@@ -1,10 +1,9 @@
-zstyle ':znap:*' repos-dir ~/.config/zsh
-source ~/dev/zsh-snap/znap.zsh
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 bindkey -v
 
+source ~/.zsh/exports.zsh
 source ~/.zsh/autoload.zsh
 source ~/.zsh/opts.zsh
 source ~/.zsh/completion.zsh
@@ -17,6 +16,9 @@ source ~/.zsh/secrets.zsh
 bindkey -v
 # stop ctrl-s from locking input
 stty -ixon
+
+# NB: Must come after vim bindings
+source ~/.zsh/fzf.zsh
 
 bindkey '^R' history-incremental-search-backward
 
@@ -36,7 +38,6 @@ function chpwd() {
 }
 
 eval "$(direnv hook zsh)"
-source ~/.zsh/exports.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -45,16 +46,12 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 #[ -f "/Users/bgardner/.ghcup/env" ] && source "/Users/bgardner/.ghcup/env" # ghcup-env
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 export PATH="/usr/local/opt/kubernetes-cli@1.22/bin:$PATH"
 
 [ -f "/Users/bgardner/.ghcup/env" ] && source "/Users/bgardner/.ghcup/env" # ghcup-env
-source /Users/bgardner/.docker/init-zsh.sh || true # Added by Docker Desktop
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-
-# chruby
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -75,3 +72,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# chruby
+source /opt/homebrew/share/chruby/chruby.sh
+source /opt/homebrew/share/chruby/auto.sh

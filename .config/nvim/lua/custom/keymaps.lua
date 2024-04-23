@@ -84,19 +84,67 @@ vim.keymap.set('n', '<leader>sp', ':CodiNew ruby<cr>', { desc = 'New [S]cratch[p
 
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ctions' })
 
+local is_remote = function(path)
+  return string.find(path, '^scp://')
+end
+
+local ACADEMIA_PREFIX = vim.env.HOME .. '/academia/'
+local REMOTE_PREFIX = 'scp://dev//home/ubuntu/code/'
+
 local open_path_on_vagrant_machine = function()
   local local_path = vim.fn.expand('%:p')
-  local academia_prefix = vim.env.HOME .. '/academia/'
-  if string.find('^' .. local_path, academia_prefix) then
-    local vagrant_path = string.gsub(local_path, academia_prefix, 'scp://dev//home/ubuntu/code/')
+
+  if is_remote(local_path) then
+    vim.print('File is already remote.')
+    return
+  end
+
+  if string.find('^' .. local_path, ACADEMIA_PREFIX) then
+    local vagrant_path = string.gsub(local_path, ACADEMIA_PREFIX, REMOTE_PREFIX)
     vim.cmd('e ' .. vagrant_path)
   else
-    error('Path ' .. local_path .. ' is not in the expected directory ' .. academia_prefix .. '.')
+    error('Path ' .. local_path .. ' is not in the expected directory ' .. ACADEMIA_PREFIX .. '.')
   end
 end
 
 vim.keymap.set('n', '<leader>ov', open_path_on_vagrant_machine, { desc = '[O]pen file in [V]agrant' })
 
+local open_path_on_local_machine = function()
+  local local_path = vim.fn.expand('%:p')
+
+  if not is_remote(local_path) then
+    vim.print('File is already local.')
+    return
+  end
+
+  if string.find('^' .. local_path, REMOTE_PREFIX) then
+    local_path = string.gsub(local_path, REMOTE_PREFIX, ACADEMIA_PREFIX)
+    vim.cmd('e ' .. local_path)
+  else
+    error('Path ' .. local_path .. ' is not in the expected directory ' .. REMOTE_PREFIX .. '.')
+  end
+end
+
+vim.keymap.set('n', '<leader>ol', open_path_on_vagrant_machine, { desc = '[O]pen remote file [L]ocally' })
+
+local copy_local_file_to_vagrant = function()
+  local local_path = vim.fn.expand('%:p')
+
+  if is_remote(local_path) then
+    vim.print('File is already remote.')
+    return
+  end
+
+  if string.find('^' .. local_path, ACADEMIA_PREFIX) then
+    vim.cmd('!scp ' .. local_path .. ' ' .. string.gsub(local_path, ACADEMIA_PREFIX, 'dev:/home/ubuntu/code/'))
+    local vagrant_path = string.gsub(local_path, ACADEMIA_PREFIX, REMOTE_PREFIX)
+    vim.cmd('e ' .. vagrant_path)
+  else
+    error('Path ' .. local_path .. ' is not in the expected directory ' .. ACADEMIA_PREFIX .. '.')
+  end
+end
+
+vim.keymap.set('n', '<leader>vc', copy_local_file_to_vagrant, { desc = '[V]agrant: [C]opy local file to remote' })
 
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`

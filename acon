@@ -1,0 +1,93 @@
+#! /usr/bin/env python3
+
+import sys
+import os
+import json
+import subprocess
+import random
+import optparse
+import pathlib
+
+optparser = optparse.OptionParser()
+optparser.add_option("-c", "--command", dest="command", default="/bin/bash")
+optparser.add_option("-l", "--list", dest="list", action="store_true", default=False)
+(opts, args) = optparser.parse_args()
+
+if args is None or len(args) != 1:
+    print(f"Usage: {pathlib.Path(__file__).name} <env> [--command <command>]", file=sys.stderr)
+    sys.exit(1)
+
+env = args[0]
+
+if env == "qa":
+    cluster = "qa-academia-app-sidekiq"
+    service = None
+elif env in ["production", "prod"]:
+    cluster = "sidekiq"
+    service = "production-sidekiq__resque__internal"
+else:
+    print("Invalid env: {}".format(env), file=sys.stderr)
+    sys.exit(1)
+
+list_task_cmd = [
+    "aws-vault", "exec", "academia",
+    "--", "aws", "ecs", "list-tasks",
+    "--region", "us-east-1",
+    "--cluster", cluster,
+]
+
+if service is not None:
+    list_task_cmd += ["--service-name", service]
+
+task_arns = subprocess.check_output(list_task_cmd).decode().strip()
+task_arns = json.loads(task_arns)["taskArns"] if task_arns else []
+
+if not task_arns:
+    print("No task arn found", file=sys.stderr)
+    sys.exit(1)
+
+describe_task_cmd = [
+    "aws-vault", "exec", "academia",
+    "--", "aws", "ecs", "describe-tasks",
+    "--region", "us-east-1",
+    "--cluster", cluster,
+    "--tasks", *task_arns,
+]
+tasks_json = subprocess.check_output(describe_task_cmd).decode().strip()
+
+def tabulate(table, headers):
+    col_widths = [max(len(str(row[i])) for row in table + [headers]) for i in range(len(headers))]
+    col_widths = [max(len(str(row[i])) for row in table + [headers]) for i in range(len(headers))]
+    table.insert(0, headers)
+    table.insert(1, ["-" * width for width in col_widths])
+    return "\n".join("\t".join(str(row[i]).ljust(width) for i, width in enumerate(col_widths)) for row in table)
+
+tasks = json.loads(tasks_json)["tasks"]
+if opts.list:
+    table = [
+        [
+            task["taskArn"],
+            task["lastStatus"],
+            task["group"].split(":")[-1],
+            task["containers"][0]["name"],
+        ]
+        for task in tasks
+    ]
+    headers = ["Task ARN", "Last Status", "Service", "Container"]
+    print(tabulate(list(table), headers=headers))
+    sys.exit(0)
+
+task_arns = [task["taskArn"] for task in tasks if task["lastStatus"] == "RUNNING" and task["containers"][0]["name"] == "app"]
+task_arn = random.choice(task_arns)
+print("Connecting to {}...".format(task_arn), file=sys.stderr)
+cmd = [
+    "aws-vault", "exec", "academia",
+    "--", "aws", "ecs", "execute-command",
+    "--interactive",
+    "--region", "us-east-1",
+    "--cluster", cluster,
+    "--container", "app",
+    "--command", opts.command,
+    "--task", task_arn,
+]
+os.execvp(cmd[0], cmd)

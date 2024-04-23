@@ -63,6 +63,26 @@ local function filecolor()
   end
 end
 
+local function isremote()
+  return vim.fn.expand('%:p'):find('^scp://') ~= nil
+end
+
+local function remotestatus()
+  if isremote() then
+    return '[remote]'
+  else
+    return '(local)'
+  end
+end
+
+local function remotecolor()
+  if isremote() then
+    return { bg = '#771122' }
+  else
+    return { bg = '#225533' }
+  end
+end
+
 require('lualine').setup {
   options = {
     theme = 'auto',
@@ -97,6 +117,7 @@ require('lualine').setup {
       { 'filetype' },
     },
     lualine_c = {
+      { remotestatus, color = remotecolor },
       { filestatus, color = filecolor},
     },
     lualine_x = {{ search_result },},

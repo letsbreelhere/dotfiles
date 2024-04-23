@@ -21,3 +21,13 @@ export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
 export FZF_DEFAULT_COMMAND="fd --hidden"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+
+# Work
+
+export ACADEMIA_LDAP_USERNAME="breegardner"
+export ACADEMIA_SSH_KEY="$HOME/.ssh/id_rsa"
+export ACADEMIA_ROOT="$HOME/academia"
+export ACADEMIA_APP="$HOME/academia/academia-app"
+export ACADEMIA_CONFIG="$HOME/academia/academia-config"
+export ACADEMIA_SHELL="$HOME/.academia-shell"
+export ACADEMIA_ZOO="$HOME/academia-zoo"
