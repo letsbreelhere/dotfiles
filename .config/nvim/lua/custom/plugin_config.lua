@@ -251,3 +251,12 @@ vim.cmd([[command! -nargs=0 Gblame Git blame]])
 vim.g.copilot_no_tab_map = 'v:true'
 
 vim.g.copilot_filetypes = { yaml = 'v:true' }
+
+-- Setup command to force toggle copilot
+
+function toggle_copilot()
+  vim.b.copilot_enabled = not vim.b.copilot_enabled
+  vim.cmd([[echo "Copilot is now " . (b:copilot_enabled ? "enabled" : "disabled")]])
+end
+
+vim.cmd([[command! -nargs=0 CopilotToggle lua toggle_copilot()]])

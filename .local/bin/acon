@@ -77,7 +77,10 @@ if opts.list:
     print(tabulate(list(table), headers=headers))
     sys.exit(0)
 
-task_arns = [task["taskArn"] for task in tasks if task["lastStatus"] == "RUNNING" and task["containers"][0]["name"] == "app"]
+task_arns = [task["taskArn"] for task in tasks if task["lastStatus"] == "RUNNING"]
+if not task_arns:
+    print("No compatible task found", file=sys.stderr)
+    sys.exit(1)
 task_arn = random.choice(task_arns)
 print("Connecting to {}...".format(task_arn), file=sys.stderr)
 cmd = [
