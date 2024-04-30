@@ -37,7 +37,10 @@ vim.keymap.set('n', '<leader>da', vim.lsp.buf.code_action, { desc = '[D]iagnosti
 vim.keymap.set('', '<leader>=', '<C-w>=')
 
 -- Make * useful in visual mode
-vim.keymap.set('v', '*', 'y/<c-r>"<cr>', { silent = true })
+vim.keymap.set('v', '*', 'y/<c-r>"<cr>N', { silent = true })
+
+-- Don't jump to next match after search
+vim.keymap.set('n', '*', '*N', { silent = true, noremap = true })
 
 -- Keep visual highlight after (de-)indents
 vim.keymap.set('v', '<', '<gv', { noremap = true })
@@ -116,6 +119,8 @@ vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('v', '<leader>f', function()
   require('telescope.builtin').live_grep({ default_text = vim.getVisualSelection(), desc = '[F]ind visual selection' })
 end)
+-- Repeat last telescope command
+vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = '[R]esume last telescope command' })
 
 vim.keymap.set('v', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find({

@@ -1,4 +1,5 @@
 alias vim=nvim
+alias vi=nvim
 alias be='bundle exec'
 alias rspec='bundle exec rspec'
 alias g=git

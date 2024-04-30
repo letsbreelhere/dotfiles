@@ -8,3 +8,4 @@ node_modules/
 .haml-lint.yml
 .solargraph.yml
 coverage/
+.config/nvim/plugin/packer_compiled.lua

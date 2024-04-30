@@ -63,6 +63,19 @@ local function filecolor()
   end
 end
 
+local function truncated_branch()
+  local branch = vim.fn.FugitiveHead()
+  if not branch then
+    return ''
+  end
+  local truncated = branch:sub(1, 13)
+  if #branch > 13 then
+    truncated = truncated .. '…'
+  end
+
+  return truncated
+end
+
 require('lualine').setup {
   options = {
     theme = 'auto',
@@ -70,7 +83,7 @@ require('lualine').setup {
   sections = process_sections {
     lualine_a = { { scroll_bar }, 'mode' },
     lualine_b = {
-      { 'branch' },
+      { truncated_branch, cond = function() return vim.fn.exists('*FugitiveHead') == 1 end, icon = '' },
       { 'diff' },
       {
         'diagnostics',

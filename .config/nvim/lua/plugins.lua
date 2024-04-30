@@ -117,4 +117,6 @@ return function(use)
   use 'github/copilot.vim'
 
   use '/home/bree/dev/blue-sentinel-nvim'
+
+  use 'andymass/vim-matchup'
 end
