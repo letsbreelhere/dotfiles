@@ -119,4 +119,6 @@ return function(use)
   use '/home/bree/dev/blue-sentinel-nvim'
 
   use 'andymass/vim-matchup'
+
+  use 'slim-template/vim-slim.git'
 end
