@@ -153,7 +153,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'ruby', 'typescript', 'vim', 'vimdoc', 'haskell' },
 
   highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
+  indent = { enable = true, disable = { 'python', 'ruby' } },
   incremental_selection = {
     enable = true,
     keymaps = {

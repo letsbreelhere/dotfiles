@@ -76,7 +76,20 @@ vim.keymap.set('v', '<leader>y', '"+y')
 -- Toggle search highlighting
 vim.keymap.set('n', '<backspace>', function() vim.o.hlsearch = not vim.o.hlsearch end, { silent = true })
 
-vim.keymap.set('n', '<leader>n', ':Neotree toggle<cr>', { silent = true, desc = "[N]eotree toggle"})
+
+
+vim.g.neotree_opened = false
+local function reveal_toggle()
+  if vim.g.neotree_opened then
+    require('neo-tree').close_all()
+    vim.g.neotree_opened = false
+  else
+    require('neo-tree').reveal_current_file()
+    vim.g.neotree_opened = true
+  end
+end
+
+vim.keymap.set('n', '<leader>n', reveal_toggle, { silent = true, desc = "[N]eotree toggle"})
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 vim.keymap.set('i', '<expr> <Tab>',   'pumvisible() ? "<C-n>" : "<Tab>"')
@@ -121,6 +134,7 @@ vim.keymap.set('v', '<leader>f', function()
 end)
 -- Repeat last telescope command
 vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = '[R]esume last telescope command' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').resume, { desc = 'Resume last telescope [F]ind' })
 
 vim.keymap.set('v', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find({
