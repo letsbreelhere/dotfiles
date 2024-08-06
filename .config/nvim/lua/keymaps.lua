@@ -36,6 +36,10 @@ vim.keymap.set('n', '<leader>da', vim.lsp.buf.code_action, { desc = '[D]iagnosti
 -- Equalize panes
 vim.keymap.set('', '<leader>=', '<C-w>=')
 
+-- Rotate windows
+vim.keymap.set('', '<leader>h', '<C-w>R')
+vim.keymap.set('', '<leader>l', '<C-w>r')
+
 -- Make * useful in visual mode
 vim.keymap.set('v', '*', 'y/<c-r>"<cr>N', { silent = true })
 
