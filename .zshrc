@@ -5,7 +5,6 @@ bindkey -v
 
 source ~/.zsh/autoload.zsh
 source ~/.zsh/opts.zsh
-source ~/.zsh/completion.zsh
 source ~/.zsh/vcs.zsh
 source ~/.zsh/prompt.zsh
 source ~/.zsh/aliases.zsh
@@ -33,3 +32,9 @@ function chpwd() {
 source ~/.zsh/exports.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source ~/.zsh/completion.zsh

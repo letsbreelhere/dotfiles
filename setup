@@ -16,7 +16,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-IGNORED_DIRS = %w{.git/ .git}
+IGNORED_DIRS = %w{.git/}
 IGNORED_FILES = %w{setup Brewfile}
 
 Dir.glob("**/*", File::FNM_DOTMATCH) do |file|
@@ -34,6 +34,9 @@ Dir.glob("**/*", File::FNM_DOTMATCH) do |file|
     %x(mkdir -p #{new_dir} && ln -nfs #{full_path} #{new_dir})
   end
 end
+
+# This file is unchecked intentionally
+%x(touch ~/.zsh/secrets.zsh)
 
 puts <<~STR
 Remaining setup:
