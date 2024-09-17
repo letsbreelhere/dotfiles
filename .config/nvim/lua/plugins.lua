@@ -116,9 +116,7 @@ return function(use)
 
   use 'github/copilot.vim'
 
-  use '/home/bree/dev/blue-sentinel-nvim'
-
   use 'andymass/vim-matchup'
 
-  use 'slim-template/vim-slim.git'
+  use 'slim-template/vim-slim'
 end

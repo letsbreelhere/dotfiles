@@ -157,3 +157,5 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = "v:lua.CustomFoldtext()"
 vim.opt.foldmethod = "expr"
 vim.opt.foldlevel = 99
+
+vim.opt.colorcolumn = "100"

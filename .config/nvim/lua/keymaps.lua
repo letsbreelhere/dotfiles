@@ -147,5 +147,11 @@ vim.keymap.set('v', '<leader>/', function()
 end, { desc = 'Search visual selection in buffer' })
 -- }}}
 
--- vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+vim.g.copilot_no_tab_map = true
+vim.keymap.set("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+vim.keymap.set('n', '<leader>ce', function()
+  vim.g.copilot_enabled = true
+end, { desc = '[C]opilot [E]nable' })
+vim.keymap.set('n', '<leader>cd', function()
+  vim.g.copilot_enabled = false
+end, { desc = '[C]opilot [D]isable' })

@@ -83,7 +83,6 @@ require('lualine').setup {
   sections = process_sections {
     lualine_a = { { scroll_bar }, 'mode' },
     lualine_b = {
-      { truncated_branch, cond = function() return vim.fn.exists('*FugitiveHead') == 1 end, icon = '' },
       { 'diff' },
       {
         'diagnostics',

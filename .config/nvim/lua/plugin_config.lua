@@ -239,3 +239,8 @@ require('telescope').setup {
   },
 }
 require('telescope').load_extension('fzf')
+
+vim.cmd('autocmd BufNewFile,BufRead *.inky-slim set filetype=slim')
+
+-- Instead of complaining about the case being wrong...why not just do the thing I wanted?!
+vim.cmd('cnoreabbrev Gbrowse GBrowse')
