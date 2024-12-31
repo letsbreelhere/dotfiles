@@ -105,12 +105,16 @@ vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]c
 
 -- Go to corresponding test file (replace app/ with spec/)
 vim.keymap.set('n', 'gt', function()
-  local path = vim.fn.expand('%:p')
-  local test_path = string.gsub(path, 'app/', 'spec/')
-  test_path = string.gsub(test_path, '.rb', '_spec.rb')
+  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ":~:.")
+  local test_path = path
+  if string.match(path, 'app/') then
+    test_path = string.gsub(path, 'app/', 'spec/', 1)
+  else
+    test_path = 'spec/' .. path
+  end
+  test_path = string.gsub(test_path, '.rb$', '_spec.rb', 1)
   vim.cmd('e ' .. test_path)
 end, { desc = '[G]o to [T]est' })
-
 
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`
@@ -148,7 +152,15 @@ end, { desc = 'Search visual selection in buffer' })
 -- }}}
 
 vim.g.copilot_no_tab_map = true
-vim.keymap.set("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+local cmp = require("cmp")
+cmp.setup {
+  mapping = {
+    ['<C-L>'] = cmp.mapping(function()
+      vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+    end)
+  },
+}
+
 vim.keymap.set('n', '<leader>ce', function()
   vim.g.copilot_enabled = true
 end, { desc = '[C]opilot [E]nable' })

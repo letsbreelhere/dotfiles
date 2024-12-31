@@ -159,3 +159,5 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldlevel = 99
 
 vim.opt.colorcolumn = "100"
+
+vim.opt.textwidth = 100

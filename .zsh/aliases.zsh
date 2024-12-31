@@ -10,3 +10,11 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias ls='ls --color=auto'
 alias open=xdg-open
+
+function get_server_pids() {
+  ps aux | grep -e '[n]ode' -e '[u]nicorn' -e '[r]ails c' -e '[p]uma' | grep -v 'vscode-server' | awk '{print $2}'
+}
+
+function purge() {
+  kill -9 $(get_server_pids)
+}
