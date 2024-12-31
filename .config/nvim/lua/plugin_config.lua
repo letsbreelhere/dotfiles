@@ -121,6 +121,11 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+require'lspconfig'.hls.setup {
+  capabilities = capabilities,
+  on_attach = require('on_attach'),
+}
+
 -- Turn on lsp status information
 require('fidget').setup()
 
@@ -243,6 +248,8 @@ require('telescope').setup {
   },
 }
 require('telescope').load_extension('fzf')
+
+require('idris2').setup({})
 
 vim.cmd([[command! -nargs=0 Gbrowse GBrowse]])
 vim.cmd([[command! -nargs=0 Gblame Git blame]])

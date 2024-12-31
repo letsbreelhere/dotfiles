@@ -116,4 +116,6 @@ return function(use)
   use 'github/copilot.vim'
 
   use 'miversen33/netman.nvim'
+
+  use {'ShinKage/idris2-nvim', requires = {'neovim/nvim-lspconfig', 'MunifTanjim/nui.nvim'}}
 end

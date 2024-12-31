@@ -11,13 +11,14 @@ import pathlib
 optparser = optparse.OptionParser()
 optparser.add_option("-c", "--command", dest="command", default="/bin/bash")
 optparser.add_option("-l", "--list", dest="list", action="store_true", default=False)
+optparse.add_option("-a", "--arn", dest="arn", default=None)
 (opts, args) = optparser.parse_args()
+
+env = args[0]
 
 if args is None or len(args) != 1:
     print(f"Usage: {pathlib.Path(__file__).name} <env> [--command <command>]", file=sys.stderr)
     sys.exit(1)
-
-env = args[0]
 
 if env == "qa":
     cluster = "qa-academia-app-sidekiq"
@@ -25,9 +26,27 @@ if env == "qa":
 elif env in ["production", "prod"]:
     cluster = "sidekiq"
     service = "production-sidekiq__resque__internal"
-else:
+elif opts.arn is None:
     print("Invalid env: {}".format(env), file=sys.stderr)
     sys.exit(1)
+
+def connect_to_task(task_arn, cluster, command):
+    print("Connecting to {}...".format(task_arn), file=sys.stderr)
+    cmd = [
+        "aws-vault", "exec", "academia",
+        "--", "aws", "ecs", "execute-command",
+        "--interactive",
+        "--region", "us-east-1",
+        "--cluster", cluster,
+        "--container", "app",
+        "--command", command,
+        "--task", task_arn,
+    ]
+    os.execvp(cmd[0], cmd)
+
+if opts.arn is not None:
+    connect_to_task(opts.arn, cluster, opts.command)
+    sys.exit(0)
 
 list_task_cmd = [
     "aws-vault", "exec", "academia",
@@ -46,6 +65,14 @@ if not task_arns:
     print("No task arn found", file=sys.stderr)
     sys.exit(1)
 
+def tabulate(table, headers):
+    col_widths = [max(len(str(row[i])) for row in table + [headers]) for i in range(len(headers))]
+    col_widths = [max(len(str(row[i])) for row in table + [headers]) for i in range(len(headers))]
+    table.insert(0, headers)
+    table.insert(1, ["-" * width for width in col_widths])
+    return "\n".join("\t".join(str(row[i]).ljust(width) for i, width in enumerate(col_widths)) for row in table)
+
+
 describe_task_cmd = [
     "aws-vault", "exec", "academia",
     "--", "aws", "ecs", "describe-tasks",
@@ -55,15 +82,9 @@ describe_task_cmd = [
 ]
 tasks_json = subprocess.check_output(describe_task_cmd).decode().strip()
 
-def tabulate(table, headers):
-    col_widths = [max(len(str(row[i])) for row in table + [headers]) for i in range(len(headers))]
-    col_widths = [max(len(str(row[i])) for row in table + [headers]) for i in range(len(headers))]
-    table.insert(0, headers)
-    table.insert(1, ["-" * width for width in col_widths])
-    return "\n".join("\t".join(str(row[i]).ljust(width) for i, width in enumerate(col_widths)) for row in table)
-
 tasks = json.loads(tasks_json)["tasks"]
-if opts.list:
+
+def list_tasks:
     table = [
         [
             task["taskArn"],
@@ -75,6 +96,9 @@ if opts.list:
     ]
     headers = ["Task ARN", "Last Status", "Service", "Container"]
     print(tabulate(list(table), headers=headers))
+
+if opts.list:
+    list_tasks()
     sys.exit(0)
 
 task_arns = [task["taskArn"] for task in tasks if task["lastStatus"] == "RUNNING"]
@@ -82,15 +106,4 @@ if not task_arns:
     print("No compatible task found", file=sys.stderr)
     sys.exit(1)
 task_arn = random.choice(task_arns)
-print("Connecting to {}...".format(task_arn), file=sys.stderr)
-cmd = [
-    "aws-vault", "exec", "academia",
-    "--", "aws", "ecs", "execute-command",
-    "--interactive",
-    "--region", "us-east-1",
-    "--cluster", cluster,
-    "--container", "app",
-    "--command", opts.command,
-    "--task", task_arn,
-]
-os.execvp(cmd[0], cmd)
+connect_to_task(task_arn, cluster, opts.command)

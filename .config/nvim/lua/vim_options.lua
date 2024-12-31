@@ -57,3 +57,4 @@ vim.g.scratchpad_autostart = false
 vim.o.scrolloff = 10
 vim.o.sidescroll = 0
 vim.o.sidescrolloff = 999
+vim.opt.colorcolumn = "100"

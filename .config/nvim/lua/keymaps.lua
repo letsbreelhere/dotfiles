@@ -146,6 +146,8 @@ end
 
 vim.keymap.set('n', '<leader>vc', copy_local_file_to_vagrant, { desc = '[V]agrant: [C]opy local file to remote' })
 
+vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, { desc = '[H]over' })
+
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`
 

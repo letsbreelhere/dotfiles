@@ -17,4 +17,4 @@ function custom_precmd {
 }
 add-zsh-hook precmd custom_precmd
 
-PROMPT='%K{reset}%F{white}[%K{reset}${return_status}%F{yellow}${job_info}%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{white}]%F{white}%F{reset}%K{reset} '
+PROMPT='%K{reset}%F{white}[%K{reset}${return_status}%F{yellow}${job_info}%F{green}%n:%F{blue}${dirname}%F{magenta}${vcs_info_msg_0_}${vcs_status_string}%K{reset}%F{white}]%F{white}%F{reset}%K{reset} '
