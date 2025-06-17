@@ -1,7 +1,7 @@
 # CLI Colors (e.g. for `ls`)
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-export EDITOR=nvim
+export EDITOR=cursor
 
 # Paths
 export PATH="$HOME/.local/bin:$PATH"
@@ -22,6 +22,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PWD/.local/bin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH=".venv/bin:$PATH"
+export DISABLE_LANDRUSH=1
+
+export PATH="$PWD/bin:$PATH"
 
 export FZF_DEFAULT_COMMAND="fd --hidden"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND

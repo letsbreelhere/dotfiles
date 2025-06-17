@@ -28,26 +28,17 @@ bindkey "^?" backward-delete-char
 chpwd_functions=("chpwd")
 
 # Source local scripts in `./.zsh_config` if present
-
 function chpwd() {
   if [ -r $PWD/.zsh_config ]; then
     source $PWD/.zsh_config
   fi
 }
 
-eval "$(direnv hook zsh)"
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
-#[ -f "/Users/bgardner/.ghcup/env" ] && source "/Users/bgardner/.ghcup/env" # ghcup-env
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-
-# chruby
-source /opt/homebrew/share/chruby/chruby.sh
-source /opt/homebrew/share/chruby/auto.sh
 
 autoload -U +X bashcompinit && bashcompinit
 source $ACADEMIA_SHELL/academia-shell.sh

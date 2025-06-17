@@ -28,9 +28,9 @@
 [commit]
   template = ~/.git-commit-template
 [core]
-  editor = nvim
+  editor = cursor
   excludesfile = ~/.gitignore
-	autocrlf = false
+	autocrlf = input
 [color]
   branch      = true
   diff        = true
@@ -62,3 +62,5 @@
 	required = true
 [init]
 	defaultBranch = master
+[http]
+	postBuffer = 157286400

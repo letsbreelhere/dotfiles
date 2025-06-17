@@ -36,8 +36,15 @@ vim.keymap.set('n', '<leader>da', vim.lsp.buf.code_action, { desc = '[D]iagnosti
 -- Equalize panes
 vim.keymap.set('', '<leader>=', '<C-w>=')
 
+-- Rotate windows
+vim.keymap.set('', '<leader>h', '<C-w>R')
+vim.keymap.set('', '<leader>l', '<C-w>r')
+
 -- Make * useful in visual mode
-vim.keymap.set('v', '*', 'y/<c-r>"<cr>', { silent = true })
+vim.keymap.set('v', '*', 'y/<c-r>"<cr>N', { silent = true })
+
+-- Don't jump to next match after search
+vim.keymap.set('n', '*', '*N', { silent = true, noremap = true })
 
 -- Keep visual highlight after (de-)indents
 vim.keymap.set('v', '<', '<gv', { noremap = true })
@@ -73,80 +80,41 @@ vim.keymap.set('v', '<leader>y', '"+y')
 -- Toggle search highlighting
 vim.keymap.set('n', '<backspace>', function() vim.o.hlsearch = not vim.o.hlsearch end, { silent = true })
 
-vim.keymap.set('n', '<leader>n', ':Neotree toggle<cr>', { silent = true, desc = "[N]eotree toggle"})
+
+
+vim.g.neotree_opened = false
+local function reveal_toggle()
+  if vim.g.neotree_opened then
+    require('neo-tree').close_all()
+    vim.g.neotree_opened = false
+  else
+    require('neo-tree').reveal_current_file()
+    vim.g.neotree_opened = true
+  end
+end
+
+vim.keymap.set('n', '<leader>n', reveal_toggle, { silent = true, desc = "[N]eotree toggle"})
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 vim.keymap.set('i', '<expr> <Tab>',   'pumvisible() ? "<C-n>" : "<Tab>"')
-
 vim.keymap.set('i', '<expr> <S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"')
 
 vim.keymap.set('n', '<leader>sp', ':CodiNew ruby<cr>', { desc = 'New [S]cratch[p]ad' })
 
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ctions' })
 
-local is_remote = function(path)
-  return string.find(path, '^scp://')
-end
-
-local ACADEMIA_PREFIX = vim.env.HOME .. '/academia/'
-local REMOTE_PREFIX = 'scp://dev//home/ubuntu/code/'
-
-local open_path_on_vagrant_machine = function()
-  local local_path = vim.fn.expand('%:p')
-
-  if is_remote(local_path) then
-    vim.print('File is already remote.')
-    return
-  end
-
-  if string.find('^' .. local_path, ACADEMIA_PREFIX) then
-    local vagrant_path = string.gsub(local_path, ACADEMIA_PREFIX, REMOTE_PREFIX)
-    vim.cmd('e ' .. vagrant_path)
+-- Go to corresponding test file (replace app/ with spec/)
+vim.keymap.set('n', 'gt', function()
+  local path = vim.fn.fnamemodify(vim.fn.expand('%'), ":~:.")
+  local test_path = path
+  if string.match(path, 'app/') then
+    test_path = string.gsub(path, 'app/', 'spec/', 1)
   else
-    error('Path ' .. local_path .. ' is not in the expected directory ' .. ACADEMIA_PREFIX .. '.')
+    test_path = 'spec/' .. path
   end
-end
-
-vim.keymap.set('n', '<leader>ov', open_path_on_vagrant_machine, { desc = '[O]pen file in [V]agrant' })
-
-local open_path_on_local_machine = function()
-  local local_path = vim.fn.expand('%:p')
-
-  if not is_remote(local_path) then
-    vim.print('File is already local.')
-    return
-  end
-
-  if string.find('^' .. local_path, REMOTE_PREFIX) then
-    local_path = string.gsub(local_path, REMOTE_PREFIX, ACADEMIA_PREFIX)
-    vim.cmd('e ' .. local_path)
-  else
-    error('Path ' .. local_path .. ' is not in the expected directory ' .. REMOTE_PREFIX .. '.')
-  end
-end
-
-vim.keymap.set('n', '<leader>ol', open_path_on_vagrant_machine, { desc = '[O]pen remote file [L]ocally' })
-
-local copy_local_file_to_vagrant = function()
-  local local_path = vim.fn.expand('%:p')
-
-  if is_remote(local_path) then
-    vim.print('File is already remote.')
-    return
-  end
-
-  if string.find('^' .. local_path, ACADEMIA_PREFIX) then
-    vim.cmd('!scp ' .. local_path .. ' ' .. string.gsub(local_path, ACADEMIA_PREFIX, 'dev:/home/ubuntu/code/'))
-    local vagrant_path = string.gsub(local_path, ACADEMIA_PREFIX, REMOTE_PREFIX)
-    vim.cmd('e ' .. vagrant_path)
-  else
-    error('Path ' .. local_path .. ' is not in the expected directory ' .. ACADEMIA_PREFIX .. '.')
-  end
-end
-
-vim.keymap.set('n', '<leader>vc', copy_local_file_to_vagrant, { desc = '[V]agrant: [C]opy local file to remote' })
-
-vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, { desc = '[H]over' })
+  test_path = string.gsub(test_path, '.rb$', '_spec.rb', 1)
+  vim.cmd('e ' .. test_path)
+end, { desc = '[G]o to [T]est' })
 
 -- [[ Plugin Keymaps ]] {{{
 -- See `:help telescope.builtin`
@@ -172,12 +140,30 @@ vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('v', '<leader>f', function()
   require('telescope.builtin').live_grep({ default_text = vim.getVisualSelection(), desc = '[F]ind visual selection' })
 end)
+-- Repeat last telescope command
+vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = '[R]esume last telescope command' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').resume, { desc = 'Resume last telescope [F]ind' })
 
 vim.keymap.set('v', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find({
     default_text = vim.getVisualSelection(),
   })
 end, { desc = 'Search visual selection in buffer' })
-
-vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("")', { silent = true, expr = true })
 -- }}}
+
+vim.g.copilot_no_tab_map = true
+local cmp = require("cmp")
+cmp.setup {
+  mapping = {
+    ['<C-L>'] = cmp.mapping(function()
+      vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+    end)
+  },
+}
+
+vim.keymap.set('n', '<leader>ce', function()
+  vim.g.copilot_enabled = true
+end, { desc = '[C]opilot [E]nable' })
+vim.keymap.set('n', '<leader>cd', function()
+  vim.g.copilot_enabled = false
+end, { desc = '[C]opilot [D]isable' })

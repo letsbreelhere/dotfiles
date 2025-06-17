@@ -1,3 +1,8 @@
+-- nvim-tree setup
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- KICKSTART SETUP{{{
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
@@ -40,7 +45,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 vim.api.nvim_create_autocmd({"BufWritePost"}, {
-  pattern = {'*/nvim/lua/custom/*.lua'},
+  pattern = {'*/nvim/lua/*.lua'},
   command = 'source <afile>'
 })
 

@@ -63,24 +63,17 @@ local function filecolor()
   end
 end
 
-local function isremote()
-  return vim.fn.expand('%:p'):find('^scp://') ~= nil
-end
-
-local function remotestatus()
-  if isremote() then
-    return '[remote]'
-  else
-    return '(local)'
+local function truncated_branch()
+  local branch = vim.fn.FugitiveHead()
+  if not branch then
+    return ''
   end
-end
-
-local function remotecolor()
-  if isremote() then
-    return { bg = '#771122' }
-  else
-    return { bg = '#225533' }
+  local truncated = branch:sub(1, 13)
+  if #branch > 13 then
+    truncated = truncated .. '…'
   end
+
+  return truncated
 end
 
 require('lualine').setup {
@@ -90,7 +83,6 @@ require('lualine').setup {
   sections = process_sections {
     lualine_a = { { scroll_bar }, 'mode' },
     lualine_b = {
-      { 'branch' },
       { 'diff' },
       {
         'diagnostics',
@@ -117,7 +109,6 @@ require('lualine').setup {
       { 'filetype' },
     },
     lualine_c = {
-      { remotestatus, color = remotecolor },
       { filestatus, color = filecolor},
     },
     lualine_x = {{ search_result },},

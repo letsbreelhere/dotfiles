@@ -10,13 +10,13 @@ return function(use)
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
+      -- Useful status updates for LSP
+      'j-hui/fidget.nvim',
+
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
     },
   }
-
-  -- Useful status updates for LSP
-  use { 'j-hui/fidget.nvim', tag = 'legacy' }
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -66,6 +66,7 @@ return function(use)
 
   -- Pretty colors
   use 'ellisonleao/gruvbox.nvim'
+
   use({ 'rose-pine/neovim', as = 'rose-pine' })
 
   -- Allow pane movement to jump out of vim into tmux
@@ -113,9 +114,7 @@ return function(use)
   -- Code scratchpad
   use({ 'metakirby5/codi.vim' })
 
-  use 'github/copilot.vim'
+  use 'andymass/vim-matchup'
 
-  use 'miversen33/netman.nvim'
-
-  use {'ShinKage/idris2-nvim', requires = {'neovim/nvim-lspconfig', 'MunifTanjim/nui.nvim'}}
+  use 'slim-template/vim-slim'
 end

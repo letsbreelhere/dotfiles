@@ -16,15 +16,11 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<Tab>'] = cmp.mapping.confirm {
+    ['<C-CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<C-y>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<C-n>'] = cmp.mapping(function(fallback)
+    ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -35,7 +31,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-    ['<C-p>'] = cmp.mapping(function(fallback)
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -121,10 +117,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-require'lspconfig'.hls.setup {
-  capabilities = capabilities,
-  on_attach = require('on_attach'),
-}
+require("lspconfig").teal_ls.setup {}
 
 -- Turn on lsp status information
 require('fidget').setup()
@@ -159,7 +152,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vim', 'haskell' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'ruby', 'typescript', 'vim', 'vimdoc', 'haskell' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python', 'ruby' } },
@@ -249,21 +242,7 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzf')
 
-require('idris2').setup({})
+vim.cmd('autocmd BufNewFile,BufRead *.inky-slim set filetype=slim')
 
-vim.cmd([[command! -nargs=0 Gbrowse GBrowse]])
-vim.cmd([[command! -nargs=0 Gblame Git blame]])
-
--- imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
-vim.g.copilot_no_tab_map = 'v:true'
-
-vim.g.copilot_filetypes = { yaml = 'v:true' }
-
--- Setup command to force toggle copilot
-
-function toggle_copilot()
-  vim.b.copilot_enabled = not vim.b.copilot_enabled
-  vim.cmd([[echo "Copilot is now " . (b:copilot_enabled ? "enabled" : "disabled")]])
-end
-
-vim.cmd([[command! -nargs=0 CopilotToggle lua toggle_copilot()]])
+-- Instead of complaining about the case being wrong...why not just do the thing I wanted?!
+vim.cmd('cnoreabbrev Gbrowse GBrowse')

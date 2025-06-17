@@ -7,6 +7,7 @@ alias glint='eslint `git diff master --name-only`'
 alias pretty='prettier --write `git diff master --name-only`'
 alias killbg='kill -9 ${${(v)jobstates##*:*:}%=*}'
 alias dra='dev run app'
+alias egrep='grep -E'
 
 # Work
 alias ave='aws-vault exec academia --'
