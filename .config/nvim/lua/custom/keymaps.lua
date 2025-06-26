@@ -20,28 +20,22 @@ end
 -- Easier quit/save maps
 vim.keymap.set('', '<leader>q', ':q<cr>')
 vim.keymap.set('', '<leader>Q', ':q!<cr>')
-vim.keymap.set('', '<leader>w', ':silent write<cr>')
+vim.keymap.set('', '<leader>w', ':w<cr>')
 
 -- Show keymap help while I'm relearning
 vim.keymap.set('n', '<leader>tk', require('telescope.builtin').keymaps, { desc = '[T]elescope [K]eymaps' })
 
 -- Show diagnostics
-vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, { desc = 'Open [D]iagnostic [H]over' })
-vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = '[D]iagnostic [P]revious' })
-vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = '[D]iagnostic [N]ext' })
-vim.keymap.set('n', '<leader>de', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, { desc = '[D]iagnostic next [E]rror' })
-vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[D]iagnostic [Q]uickfix' })
-vim.keymap.set('n', '<leader>da', vim.lsp.buf.code_action, { desc = '[D]iagnostic [A]ction' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist)
 
 -- Equalize panes
 vim.keymap.set('', '<leader>=', '<C-w>=')
 
 -- Make * useful in visual mode
 vim.keymap.set('v', '*', 'y/<c-r>"<cr>', { silent = true })
-
--- Keep visual highlight after (de-)indents
-vim.keymap.set('v', '<', '<gv', { noremap = true })
-vim.keymap.set('v', '>', '>gv', { noremap = true })
 
 vim.keymap.set('n', '<leader>e', ':e <C-R>=expand("%:p:h") . \'/\'<CR>')
 
@@ -77,21 +71,9 @@ vim.keymap.set('n', '<leader>n', ':Neotree toggle<cr>', { silent = true, desc = 
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 vim.keymap.set('i', '<expr> <Tab>',   'pumvisible() ? "<C-n>" : "<Tab>"')
-
 vim.keymap.set('i', '<expr> <S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"')
 
-vim.keymap.set('n', '<leader>sp', ':CodiNew ruby<cr>', { desc = 'New [S]cratch[p]ad' })
-
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ctions' })
-
-local rename_with_prompt = function()
-  local name_under_cursor = vim.fn.expand('<cword>')
-  local new_name = vim.fn.input('Rename `' .. name_under_cursor .. '` to: ')
-  if new_name ~= '' then
-    vim.lsp.buf.rename(new_name)
-  end
-end
-vim.keymap.set('n', '<leader>rn', rename_with_prompt, { desc = '[R]e[n]ame' })
 
 
 -- [[ Plugin Keymaps ]] {{{
@@ -110,12 +92,11 @@ vim.keymap.set('n', '<leader>/', function()
     winblend = 10,
     previewer = false,
   })
-end, { desc = '[/] Fuzzily search in current buffer' })
+end, { desc = '[/] Fuzzily search in current buffer]' })
 vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
--- vim.keymap.set('n', '<leader>hs', require('telescope').extensions.hoogle.list, { desc = '[H]oogle [S]earch' })
 vim.keymap.set('v', '<leader>f', function()
   require('telescope.builtin').live_grep({ default_text = vim.getVisualSelection(), desc = '[F]ind visual selection' })
 end)
@@ -123,12 +104,7 @@ end)
 vim.keymap.set('v', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find({
     default_text = vim.getVisualSelection(),
+    desc = 'Search visual selection in buffer'
   })
-end, { desc = 'Search visual selection in buffer' })
-
-vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("")', { silent = true, expr = true })
-
-vim.keymap.set('n', '<leader>tr', function()
-  require('plenary.test_harness').test_file(vim.fn.expand('%p'))
-end, { desc = '[T]est [R]unner' })
+end)
 -- }}}
